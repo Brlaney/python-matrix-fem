@@ -71,7 +71,6 @@ def process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, Kg, fg, 
         # for properly index in programming:
         l2g = np.array([[loc1-1], [loc2-1], [loc3-1], [loc4-1]])
 
-
         x1 = nodes[mn1-1][0]  # node mn1 x1-coordinates
         y1 = nodes[mn1-1][1]  # node mn1 y1-coordinates
         x2 = nodes[mn2-1][0]  # node mn2 x2-coordinates
@@ -97,10 +96,16 @@ def process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, Kg, fg, 
             [-cs*cs, -cs*sn, cs*cs, cs*sn],
             [-cs*sn, -sn*sn, cs*sn, sn*sn]
         ])
-
-        # Kg.append(elementK)
-
+        
+        newK[l2g[0]] = elementK[0][0]
+        newK[l2g[1]] = elementK[1][1]
+        newK[l2g[2]] = elementK[2][2]
+        newK[l2g[3]] = elementK[3][3]
+        
+        Kg = newK + Kg
+        
         L1.append(memberLIn)
         L2.append(memberLFt)
         thetas1.append(thetad)
         thetas2.append(thetar)
+        

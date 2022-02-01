@@ -48,3 +48,5 @@ defined in the preprocess.py script.
 # print('\n Each members length (ft.): \n', L2)
 # print('\n Each members theta (deg): \n', thetas1)
 # print('\n Each members theta (rad): \n', thetas2)
+
+print(Kg)
