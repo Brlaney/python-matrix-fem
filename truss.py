@@ -1,4 +1,4 @@
-from process import *
+from preprocess import *
 import numpy as np
 
 # Node coordinates
