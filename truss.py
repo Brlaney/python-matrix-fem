@@ -29,34 +29,22 @@ n = len(nodes)     # number of nodes
 m = len(members)   # number of members
 gdof = n * 2       # number of global degrees of freedom
 
-Kg = np.zeros(())  # global stiffness matrix
+# External forces (lbs) in form: [global dof - 1, (+/-) value]
+fg = np.array([3, -30000])
 
-process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, Kg)
+# Un-restrained global degrees of freedom - 1
+dg = np.array([2, 3, 4, 5])
 
-print('\n Each members length (in.): \n', L1)
-print('\n Each members length (ft.): \n', L2)
-print('\n Each members theta (deg): \n', thetas1)
-print('\n Each members theta (rad): \n', thetas2)
-# print(K)
+Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
 
-# Global force matrix
-fg = np.array([
-    [1],
-    [1],
-    [0],
-    [-30000],
-    [0],
-    [0],
-    [1],
-    [1]])
+# Calling our function
+process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, Kg, fg, dg)
 
-# Global displacement matrix
-dg = np.array([
-    [0],
-    [0],
-    [1],
-    [1],
-    [1],
-    [1],
-    [0],
-    [0]])
+'''
+Testing the output of our process function that we 
+defined in the preprocess.py script. 
+'''
+# print('\n Each members length (in.): \n', L1)
+# print('\n Each members length (ft.): \n', L2)
+# print('\n Each members theta (deg): \n', thetas1)
+# print('\n Each members theta (rad): \n', thetas2)

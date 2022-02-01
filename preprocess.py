@@ -50,11 +50,12 @@ def distance(dx, dy):
     ]
 
 
-def process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, K):
+def process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, Kg, fg, dg):
 
     for i in range(m):
-        p = i + 1  # actual member number 
-        
+        p = i + 1  # actual member number
+        newK = np.zeros((2*n, 2*n))
+
         # For member number: i, map nodes: mn1 --> mn2
         mn1 = members[i][0]
         mn2 = members[i][1]
@@ -64,15 +65,17 @@ def process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, K):
         loc3 = 2 * mn2 - 1
         loc4 = 2 * mn2
 
+        # actual global dof number:
         localToGlobal = np.array([[loc1], [loc2], [loc3], [loc4]])
 
-        print('\n Member number', p, 'local dofs map to:')
-        print(localToGlobal)
+        # for properly index in programming:
+        l2g = np.array([[loc1-1], [loc2-1], [loc3-1], [loc4-1]])
 
-        x1 = nodes[mn1 - 1][0]  # node mn1 x1-coordinates
-        y1 = nodes[mn1 - 1][1]  # node mn1 y1-coordinates
-        x2 = nodes[mn2 - 1][0]  # node mn2 x2-coordinates
-        y2 = nodes[mn2 - 1][1]  # node mn2 y2-coordinates
+
+        x1 = nodes[mn1-1][0]  # node mn1 x1-coordinates
+        y1 = nodes[mn1-1][1]  # node mn1 y1-coordinates
+        x2 = nodes[mn2-1][0]  # node mn2 x2-coordinates
+        y2 = nodes[mn2-1][1]  # node mn2 y2-coordinates
 
         dx = x2 - x1  # Change in x
         dy = y2 - y1  # Change in y
@@ -95,7 +98,8 @@ def process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, K):
             [-cs*sn, -sn*sn, cs*sn, sn*sn]
         ])
 
-        # K.append(elementK)
+        # Kg.append(elementK)
+
         L1.append(memberLIn)
         L2.append(memberLFt)
         thetas1.append(thetad)
