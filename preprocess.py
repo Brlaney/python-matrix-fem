@@ -42,15 +42,10 @@ def distance(dx, dy):
     else:
         print('An error has occured. The system does not match any case.')
 
-    return [
-        round(L1, 1),
-        round(L2, 1),
-        round(angled, 0),
-        round(angler, 2)
-    ]
+    return [L1, L2, angled, angler]
 
 
-def process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, Kg, fg, dg):
+def process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, Kg, Kl, fg, dg):
 
     for i in range(m):
         p = i + 1  # actual member number
@@ -81,13 +76,15 @@ def process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, Kg, fg, 
 
         properties = distance(dx, dy)
 
-        memberLIn = [properties[0]]
-        memberLFt = [properties[1]]
-        thetad = [properties[2]]
-        thetar = [properties[3]]
+        memberLIn = properties[0]
+        memberLFt = properties[1]
+        thetad = properties[2]
+        thetar = properties[3]
 
-        cs = np.cos(thetad)
-        sn = np.sin(thetad)
+        print(thetar)
+
+        cs = math.cos(thetar)
+        sn = math.sin(thetar)
         coeff = (E[i] * A[i]) / memberLIn
 
         elementK = coeff * np.array([
@@ -96,16 +93,9 @@ def process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, Kg, fg, 
             [-cs*cs, -cs*sn, cs*cs, cs*sn],
             [-cs*sn, -sn*sn, cs*sn, sn*sn]
         ])
-        
-        newK[l2g[0]] = elementK[0][0]
-        newK[l2g[1]] = elementK[1][1]
-        newK[l2g[2]] = elementK[2][2]
-        newK[l2g[3]] = elementK[3][3]
-        
-        Kg = newK + Kg
-        
+
+        Kl.append(elementK)
         L1.append(memberLIn)
         L2.append(memberLFt)
         thetas1.append(thetad)
         thetas2.append(thetar)
-        

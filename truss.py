@@ -37,5 +37,14 @@ dg = np.array([2, 3, 4, 5])
 
 Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
 
+Kl = []  # Will contain each elems local [k] (global coords)
+
 # Calling our function
-process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, Kg, fg, dg)
+process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, Kg, Kl, fg, dg)
+
+for i in range(5):
+    p = i + 1
+    print('\n')
+    print('[k]el (global coordinates) for element no.:', p)
+    print(Kl[i])
+    
