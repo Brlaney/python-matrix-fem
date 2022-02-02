@@ -39,14 +39,3 @@ Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
 
 # Calling our function
 process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, Kg, fg, dg)
-
-'''
-Testing the output of our process function that we 
-defined in the preprocess.py script. 
-'''
-# print('\n Each members length (in.): \n', L1)
-# print('\n Each members length (ft.): \n', L2)
-# print('\n Each members theta (deg): \n', thetas1)
-# print('\n Each members theta (rad): \n', thetas2)
-
-print(Kg)
