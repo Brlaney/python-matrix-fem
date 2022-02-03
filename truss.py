@@ -35,6 +35,11 @@ fg = np.array([3, -30000])
 # Un-restrained global degrees of freedom - 1
 dg = np.array([2, 3, 4, 5])
 
+# given displacements:
+dp = np.array([
+    [1, -0.6],
+    [6, -0.3]])
+
 Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
 
 Kl = []  # Will contain each elems local [k] (global coords)
