@@ -45,7 +45,7 @@ def distance(dx, dy):
     return [L1, L2, angled, angler]
 
 
-def process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, Kg, Kl, fg, dg):
+def process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, Kg, Kl, fg, dgu):
 
     for i in range(m):
         p = i + 1  # actual member number
