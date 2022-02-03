@@ -81,8 +81,6 @@ def process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, Kg, Kl, 
         thetad = properties[2]
         thetar = properties[3]
 
-        print(thetar)
-
         cs = math.cos(thetar)
         sn = math.sin(thetar)
         coeff = (E[i] * A[i]) / memberLIn

@@ -42,9 +42,12 @@ Kl = []  # Will contain each elems local [k] (global coords)
 # Calling our function
 process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, Kg, Kl, fg, dg)
 
+'''
 for i in range(5):
     p = i + 1
     print('\n')
     print('[k]el (global coordinates) for element no.:', p)
     print(Kl[i])
-    
+'''
+
+print(len(Kl))
