@@ -33,7 +33,10 @@ gdof = n * 2       # number of global degrees of freedom
 fg = np.array([3, -30000])
 
 # Un-restrained global degrees of freedom - 1
-dg = np.array([2, 3, 4, 5])
+dgu = np.array([2, 3, 4, 5])
+
+# Restrained global degrees of freedom - 1
+dgr = np.array([0, 1, 6, 7])
 
 # given displacements:
 dp = np.array([
@@ -46,7 +49,7 @@ Kl = []  # Will contain each elems local [k] (global coords)
 
 # Calling our function
 process(n, m, gdof, nodes, members, E, A, L1,
-        L2, thetas1, thetas2, Kg, Kl, fg, dg)
+        L2, thetas1, thetas2, Kg, Kl, fg, dgu)
 
 '''
 for i in range(5):
