@@ -40,7 +40,8 @@ Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
 Kl = []  # Will contain each elems local [k] (global coords)
 
 # Calling our function
-process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, Kg, Kl, fg, dg)
+process(n, m, gdof, nodes, members, E, A, L1,
+        L2, thetas1, thetas2, Kg, Kl, fg, dg)
 
 '''
 for i in range(5):
@@ -48,6 +49,40 @@ for i in range(5):
     print('\n')
     print('[k]el (global coordinates) for element no.:', p)
     print(Kl[i])
+
+print('\n')
+print(Kl)
+
+print('\n')
+print(Kl[0])
+
+print('\n')
+print(Kl[1])
+
+print('\n')
+print(Kl[2])
+
+print('\n')
+print(Kl[3])
+
+print('\n')
+print(Kl[4])
+
+
+row1 = np.array([
+    [827140.0624, 84422.84366, -483333.3333, 0],
+    [84422.84366, 214114.7864, 0,	0],
+    [-483333.3333, 0, 483333.3333, -84422.84366],
+    [0,	0, -84422.84366, 214114.7864]
+])
 '''
 
-print(len(Kl))
+'''
+kr = np.array([[827140.0624, 84422.84366, -483333.3333, 0],[84422.84366, 214114.7864, 0,	0],[-483333.3333, 0, 483333.3333, -84422.84366],[0,	0, -84422.84366, 214114.7864]])
+
+b = np.array([[0], [-30000], [0], [0]])
+
+
+linalg.inv(a)
+
+'''
