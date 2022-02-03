@@ -4,14 +4,15 @@ import numpy as np
 
 def distance(dx, dy):
     '''
-    The distance formula, returns Length (L) 
+      The distance formula, returns Length (L) 
     between two points (x1, y1) and (x2, y2).
     '''
     L1 = math.sqrt(dx**2 + dy**2)
     L2 = math.sqrt(dx**2 + dy**2) / 12
 
     '''
-    The following 8 cases address each possible condition for dx & dy.
+      The following 8 cases address 
+    each possible condition for dx & dy.
     First four cases: Quad-IV, III, II, & I.
     Last four cases:  theta = 90, 270, 0, 180.
     '''
@@ -46,7 +47,10 @@ def distance(dx, dy):
 
 
 def process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, Kg, Kl, fg, dgu):
-
+    '''
+      The following for loop iterates for however 
+    many members are defined in the given system.
+    '''
     for i in range(m):
         p = i + 1  # actual member number
         newK = np.zeros((2*n, 2*n))
@@ -91,6 +95,13 @@ def process(n, m, gdof, nodes, members, E, A, L1, L2, thetas1, thetas2, Kg, Kl, 
             [-cs*cs, -cs*sn, cs*cs, cs*sn],
             [-cs*sn, -sn*sn, cs*sn, sn*sn]
         ])
+
+        print('\n Element', p, 'local to global dofs are:')
+        print('\n')
+        print(localToGlobal[0])
+        print(localToGlobal[1])
+        print(localToGlobal[2])
+        print(localToGlobal[3])
 
         Kl.append(elementK)
         L1.append(memberLIn)

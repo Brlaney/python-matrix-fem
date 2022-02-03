@@ -14,7 +14,7 @@ nodes = np.array([
     [120, 0]
 ])
 
-# Member connection matrix
+# Member/element connection matrix
 members = np.array([
     [1, 2],
     [1, 4],
@@ -23,9 +23,9 @@ members = np.array([
     [3, 4]
 ])
 
-# Member material properties & geometry
-E = np.repeat(29*10**6, 5)  # Modulus of elasticity for each element
-A = np.repeat(2, 5)         # Cross-sectional areas of each element (sq in)
+# Each elements material properties & geometry
+E = np.repeat(29*10**6, 5)  # Modulus of elasticity
+A = np.repeat(2, 5)         # Cross-sectional areas (sq in)
 
 #   Pre-define arrays to contain each members;
 L1 = []            # length in inches
@@ -49,7 +49,6 @@ dgu = np.array([2, 3, 6, 7])
 # Restrained global degrees of freedom - 1
 dgr = np.array([0, 1, 4, 5])
 
-
 # given displacements:
 # dp = np.array([])
 
@@ -61,3 +60,42 @@ Kl = []  # Will contain each elems local [k] (global coords)
 process(n, m, gdof, nodes, members, E, A, L1,
         L2, thetas1, thetas2, Kg, Kl, fg, dgu)
 
+'''
+print('\n')
+print(Kl)
+
+print('\n')
+print(Kl[0])
+
+print('\n')
+print(Kl[1])
+
+print('\n')
+print(Kl[2])
+
+print('\n')
+print(Kl[3])
+
+print('\n')
+print(Kl[4])
+'''
+
+''' Test the outputs
+print('\n Elements lengths (in)')
+print(L1)
+
+print('\n Elements lengths (ft)')
+print(L2)
+
+print('\n Elements orientation (deg)')
+print(thetas1)
+
+print('\n Elements orientation (rad)')
+print(thetas2)
+
+for i in range(5):
+    p = i + 1
+    print('\n')
+    print('[k]el (global coordinates) for element no.:', p)
+    print(Kl[i])
+'''
