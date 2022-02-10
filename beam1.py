@@ -1,5 +1,6 @@
+# Reference ./beam_example_1.png
 # Chapter (2.) Problem 2.3
-from truss_analysis import *
+from beam_analysis import *
 import numpy as np
 
 # Node coordinates
@@ -26,8 +27,7 @@ A = np.repeat(2, 5)         # Cross-sectional areas (sq in)
 #   Pre-define arrays to contain each members;
 L1 = []            # length in inches
 L2 = []            # length in feet
-thetas1 = []       # units: degrees
-thetas2 = []       # units: radians
+
 
 n = len(nodes)     # number of nodes
 m = len(members)   # number of members
@@ -95,3 +95,4 @@ for i in range(5):
     print('[k]el (global coordinates) for element no.:', p)
     print(Kl[i])
 '''
+

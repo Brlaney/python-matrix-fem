@@ -1,4 +1,4 @@
-from preprocess import *
+from truss_analysis import *
 import numpy as np
 
 # Node coordinates
