@@ -1,5 +1,7 @@
+# Chapter 2 lesson in textbook
 from truss_analysis import *
 import numpy as np
+
 
 # Node coordinates
 nodes = np.array([
@@ -8,6 +10,7 @@ nodes = np.array([
     [240, 120],
     [360, 0]
 ])
+
 
 # Member connection matrix
 members = np.array([
@@ -18,40 +21,48 @@ members = np.array([
     [2, 4]
 ])
 
-E = np.repeat(29*10**6, 5)    # Modulus of elasticity for each element
-A = np.repeat(2, 5)           # Cross-sectional areas of each element
 
 #   Pre-define arrays to contain each members;
 L1 = []            # length in inches
 L2 = []            # length in feet
-thetas1 = []       # units: degrees
-thetas2 = []       # units: radians
-
+orient1 = []       # units: degrees
+orient2 = []       # units: radians
 n = len(nodes)     # number of nodes
 m = len(members)   # number of members
-gdof = n * 2       # number of global degrees of freedom
+A = np.repeat(2, 5)           # Cross-sectional areas of each element
+E = np.repeat(29*10**6, 5)    # Modulus of elasticity for each element
+
 
 # External forces (lbs) in form: [global dof - 1, (+/-) value]
 fg = np.array([3, -30000])
-
 # Un-restrained global degrees of freedom - 1
 dgu = np.array([2, 3, 4, 5])
-
 # Restrained global degrees of freedom - 1
 dgr = np.array([0, 1, 6, 7])
-
 # given displacements:
 dp = np.array([
     [1, -0.6],
     [6, -0.3]])
 
-Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
 
+Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
 Kl = []  # Will contain each elems local [k] (global coords)
 
+
 # Calling our function
-process(n, m, gdof, nodes, members, E, A, L1,
-        L2, thetas1, thetas2, Kg, Kl, fg, dgu)
+processTruss(n, m, nodes, members, E, A, L1,
+        L2, orient1, orient2, Kg, Kl, fg, dgu)
+
+
+print('\n Length in inches')
+print(L1)
+print('\n Length in feet')
+print(L2)
+print('\n Angles in degrees')
+print(orient1)
+print('\n Angles in radians')
+print(orient2)
+
 
 '''
 for i in range(5):
@@ -78,19 +89,4 @@ print(Kl[3])
 print('\n')
 print(Kl[4])
 
-row1 = np.array([
-    [827140.0624, 84422.84366, -483333.3333, 0],
-    [84422.84366, 214114.7864, 0,	0],
-    [-483333.3333, 0, 483333.3333, -84422.84366],
-    [0,	0, -84422.84366, 214114.7864]
-])
-'''
-
-'''
-kr = np.array([[827140.0624, 84422.84366, -483333.3333, 0],[84422.84366, 214114.7864, 0,	0],[-483333.3333, 0, 483333.3333, -84422.84366],[0,	0, -84422.84366, 214114.7864]])
-
-b = np.array([[0], [-30000], [0], [0]])
-
-
-linalg.inv(a)
 '''
