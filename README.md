@@ -2,7 +2,7 @@
   <img
     src="https://user-images.githubusercontent.com/64326462/134097233-d1484521-9ee7-4160-832c-c0bd18a1b07d.png"
     alt="Mtrx_Logo"
-    style="margin: 0; padding: 0;"
+    style="margin: 0; padding: 0; margin-bottom: 0.5rem;"
   />
 </div>
 <div align="center">
