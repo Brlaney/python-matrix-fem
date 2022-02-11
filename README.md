@@ -65,7 +65,7 @@ Let me know if you have any questions and feel free to reach out to me through a
 <div align="center">
   <h4><b>Truss Example 1 - figure 1.</b></h4>
   <img 
-    src="https://user-images.githubusercontent.com/64326462/153630740-d688f8b7-ae1c-456a-9ce6-65346a0cb8e6.png" 
+    src="https://user-images.githubusercontent.com/64326462/153637273-42628283-439c-49b4-86f9-c988d79a3a7b.png" 
     alt="truss-example-1"  
     align="center"
     width="900"
@@ -78,7 +78,7 @@ Let me know if you have any questions and feel free to reach out to me through a
 <div align="center">
   <h4><b>Truss Example 2 - figure 2.</b></h4>
   <img 
-    src="https://user-images.githubusercontent.com/64326462/153630929-d517f6f5-e932-4c62-869b-1ed3c9da9c21.png" 
+    src="https://user-images.githubusercontent.com/64326462/153637276-041a25ce-f460-4d2e-a87c-470977d9650c.png" 
     alt="truss-example-2"  
     align="center"
     width="900"
@@ -91,7 +91,7 @@ Let me know if you have any questions and feel free to reach out to me through a
 <div align="center">
   <h4><b>Beam Example 1 - figure 3.</b></h4>
   <img 
-    src="https://user-images.githubusercontent.com/64326462/153630923-d32d3e31-8c36-4077-95b2-17c5fb92a94a.png" 
+    src="https://user-images.githubusercontent.com/64326462/153637271-d16ef5d6-97ab-4e2f-b1ae-70de4fc4ddea.png" 
     alt="beam-example-1"  
     align="center"
     width="900"
