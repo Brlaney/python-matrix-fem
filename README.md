@@ -4,6 +4,8 @@
     alt="Mtrx_Logo"
     style="margin: 0; padding: 0;"
   />
+</div>
+<div align="center">
   <p>
     <a href="https://github.com/brlaney/python-matrix-fem/commits/master">
       <img src="https://img.shields.io/github/last-commit/brlaney/python-matrix-fem?style=flat-square">
