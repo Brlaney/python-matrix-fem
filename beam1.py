@@ -13,19 +13,11 @@ members = np.array([[1, 2], [2, 3], [3, 4]])
 
 
 #   Pre-define arrays to contain each members;
-L1 = []            # length in inches
-L2 = []            # length in feet
-n = len(nodes)     # number of nodes
-m = len(members)   # number of members
-E = np.repeat(1, 5)    # Modulus of elasticity lbs/in^2 (psi)
-I = np.repeat(1, 5)    # Moment of inertia in^4
-
-
-# External forces (lbs) in form: [global dof - 1, (+/-) value]
-fg = np.array([
-    [2, 40000],
-    [3, -30000]
-])
+L = []                # length in meters
+n = len(nodes)         # number of nodes
+m = len(members)       # number of members
+E = np.repeat(1, 5)    # Modulus of elasticity kPa
+I = np.repeat(1, 5)    # Moment of inertia m^4
 
 
 # Un-restrained/restrained global degrees of freedom - 1
@@ -33,46 +25,21 @@ dgu = np.array([2, 3, 5, 7])
 dgr = np.array([0, 1, 4, 6])
 fg = np.array([[2, -100]])    # External forces (kN)
 ds = np.array([])
-
-
 Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
 Kl = []  # Will contain each elems local [k] (global coords)
-
+edof = []
 
 # Calling our function
 processBeam(n, m, nodes, members, 
-        E, I, L1, Kg, Kl, fg, dgu)
+        E, I, L, Kg, Kl, fg, dgu, edof)
 
 
-'''
-print('\n')
-print(Kl)
-
-print('\n')
-print(Kl[0])
-
-print('\n')
-print(Kl[1])
-
-print('\n')
-print(Kl[2])
-
-print('\n')
-print(Kl[3])
-
-print('\n')
-print(Kl[4])
-'''
-
-''' Test the outputs
-print('\n Elements lengths (meters)')
-print(L)
-
-
-for i in range(5):
-    p = i + 1
-    print('\n')
-    print('[k]el (global coordinates) for element no.:', p)
-    print(Kl[i])
-'''
-
+# Test the output
+for i in range(m):
+    p = i+1
+    v1 = edof[i][0]
+    v2 = edof[i][1]
+    v3 = edof[i][2]
+    v4 = edof[i][3]
+    print('\nLocal to global degrees of \nfreedom for member number', p)
+    print('[', v1[0], '', v2[0], '', v3[0], '', v4[0], ']')

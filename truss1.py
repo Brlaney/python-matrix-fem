@@ -29,8 +29,8 @@ orient1 = []       # units: degrees
 orient2 = []       # units: radians
 n = len(nodes)     # number of nodes
 m = len(members)   # number of members
-A = np.repeat(2, 5)           # Cross-sectional areas of each element
-E = np.repeat(29*10**6, 5)    # Modulus of elasticity for each element
+A = np.repeat(2, m)           # Cross-sectional areas of each element
+E = np.repeat(29*10**6, m)    # Modulus of elasticity for each element
 
 
 # External forces (lbs) in form: [global dof - 1, (+/-) value]
@@ -40,9 +40,7 @@ dgu = np.array([2, 3, 4, 5])
 # Restrained global degrees of freedom - 1
 dgr = np.array([0, 1, 6, 7])
 # given displacements:
-dp = np.array([
-    [1, -0.6],
-    [6, -0.3]])
+dp = np.array([ [1, -0.6], [6, -0.3]])
 
 
 Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
@@ -73,6 +71,7 @@ for i in range(5):
 
 print('\n')
 print(Kl)
+
 
 print('\n')
 print(Kl[0])

@@ -2,10 +2,11 @@ from math import sin, cos, atan, pi, radians, dist
 import numpy as np
 
 
-def processBeam(n, m, nodes, members, E, I, L, Kg, Kl, fg, dgu):
+def processBeam(n, m, nodes, members, E, I, L, Kg, Kl, fg, dgu, edof):
     '''
-      The following for loop iterates for however 
-    many members are defined in the given system.
+      Applies the stiffness method to solve for member end shears (V)
+    and member end bending moments (M) along with vertical displacements
+    (dy) and rotation angle (dM) at each node.
     '''
     for i in range(m):
         p = i + 1  # actual member number
@@ -34,22 +35,15 @@ def processBeam(n, m, nodes, members, E, I, L, Kg, Kl, fg, dgu):
         n2 = (x2, 0)
 
         l1 = dist(n1, n2)
-        l2 = l1 / 12
-        c = (2*E[i]*I[i]) / l1 ^ 3
+        c = 2*E[i]*I[i] / l1**3
 
         elementK = c * np.array([
-            [c*6, -3*l1*c, -6*c, -3*l1*c],
-            [-3*l1*c, 2*c*l1 ^ 2, 3*l1*c, c*l ^ 2],
+            [6*c, -3*l1*c, -6*c, -3*l1*c],
+            [-3*l1*c, 2*c*l1**2, 3*l1*c, c*l1**2],
             [-c*6, 3*c*l1, 6*c, 3*c*l1],
-            [-3*l1*c, c*l1 ^ 2, 3*l1*c, 2*c*l ^ 2]
+            [-3*l1*c, c*l1**2, 3*l1*c, 2*c*l1**2]
         ])
 
-        print('\n Element', p, 'local to global dofs are:')
-        print('\n')
-        print(localToGlobal[0])
-        print(localToGlobal[1])
-        print(localToGlobal[2])
-        print(localToGlobal[3])
-
+        edof.append(localToGlobal)
         Kl.append(elementK)
         L.append(l1)
