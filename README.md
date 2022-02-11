@@ -165,7 +165,7 @@ The solution to the system should be output in your terminal after running the s
 
 ## References and resources
 
-- Great introduction video by [Dr. Structure](https://youtu.be/kFkU1M7xVbg)
+- Great intro lesson: [Dr. Structure](https://youtu.be/kFkU1M7xVbg)
 - Wikipedia:
   - [Direct Stiffness Method](https://en.wikipedia.org/wiki/Direct_stiffness_method)
   - [Finite Element Method](https://en.wikipedia.org/wiki/Finite_element_method)
