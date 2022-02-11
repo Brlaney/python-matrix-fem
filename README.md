@@ -109,22 +109,34 @@ git clone https://github.com/Brlaney/python-matrix-fem.git
 
 ### 2. Start virtual environment
 
+Note: you can do this many different ways - or you don't necessarily even need to start a virtual environment if you have all of the necessary dependencies. My reason for using one is to easily keep up with all of the dependencies used in the project. The instructions below are what work for me using my Windows terminal.
+
+```bash
+virtualenv ll_env
+
+# or
+
+virtualenv <your-venv-name>
+```
+
+```bash
+ll_env\scripts\activate.bat
+
+# or
+
+<your-venv-name>\scripts\activate.bat
+```
 
 ### 3. Install dependencies
 
 ```bash
-cd mtrx
+(ll_env) C:\PATH\>pip install -r requirements.txt
 
-# then for yarn users:
-yarn install
-
-# or npm users:
-npm i 
 ```
 
 ### 4. Run example scripts
 
-truss1.py, truss2.py, and beam1.py are all example scripts I have written that model the figures shown in the Demo section above.
+truss1.py, truss2.py, and beam1.py are all example scripts I have written that model the figures 1, 2, & 3 shown in the Demo section above.
 
 ```bash
 py truss1.py
