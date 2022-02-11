@@ -2,7 +2,7 @@ from math import sin, cos, atan, pi, radians, dist
 import numpy as np
 
 
-def processBeam(n, m, nodes, members, E, I, L, Kg, Kl, fg, dgu, edof):
+def processBeam(n, m, nodes, members, E, I, L, Kg, Kl, fg, dgu, edof, t1):
     '''
       Applies the stiffness method to solve for member end shears (V)
     and member end bending moments (M) along with vertical displacements
@@ -16,15 +16,43 @@ def processBeam(n, m, nodes, members, E, I, L, Kg, Kl, fg, dgu, edof):
         mn1 = members[i][0]
         mn2 = members[i][1]
 
-        loc1 = 2 * mn1 - 1
-        loc2 = 2 * mn1
-        loc3 = 2 * mn2 - 1
-        loc4 = 2 * mn2
+        loc1 = 2 * mn1 - 1    # Local dof1 --> global value(loc1)
+        loc2 = 2 * mn1        # Local dof2 --> global value(loc2)
+        loc3 = 2 * mn2 - 1    # Local dof3 --> global value(loc3)
+        loc4 = 2 * mn2        # Local dof4 --> global value(loc4)
 
-        # actual global dof number:
+        # The actual global dof's index:
         l2g_act = np.array([[loc1], [loc2], [loc3], [loc4]])
 
-        # for properly index in programming:
+        l2g_row1 = np.array([
+            [loc1, loc1],
+            [loc1, loc2],
+            [loc1, loc3],
+            [loc1, loc4]
+        ])
+        
+        l2g_row2 = np.array([
+            [loc2, loc1],
+            [loc2, loc2],
+            [loc2, loc3],
+            [loc2, loc4]
+        ])
+                
+        l2g_row3 = np.array([
+            [loc3, loc1],
+            [loc3, loc2],
+            [loc3, loc3],
+            [loc3, loc4]
+        ])
+        
+        l2g_row4 = np.array([
+            [loc4, loc1],
+            [loc4, loc2],
+            [loc4, loc3],
+            [loc4, loc4]
+        ])
+
+        # To properly indexing in code:
         l2g_prog = np.array([[loc1-1], [loc2-1], [loc3-1], [loc4-1]])
 
         x1 = nodes[mn1-1][0]  # node mn1 x1-coordinates
@@ -37,13 +65,14 @@ def processBeam(n, m, nodes, members, E, I, L, Kg, Kl, fg, dgu, edof):
         l1 = dist(n1, n2)
         c = 2*E[i]*I[i] / l1**3
 
-        elementK = c * np.array([
+        elemK = c * np.array([
             [6, -3*l1, -6, -3*l1],
             [-3*l1, 2*l1**2, 3*l1, l1**2],
             [-6, 3*l1, 6, 3*l1],
             [-3*l1, l1**2, 3*l1, 2*l1**2]
         ])
 
+        t1.append([l2g_row1, l2g_row2, l2g_row3, l2g_row4])
         edof.append(l2g_act)
-        Kl.append(elementK)
+        Kl.append(elemK)
         L.append(l1)
