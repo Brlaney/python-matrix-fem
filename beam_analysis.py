@@ -22,10 +22,10 @@ def processBeam(n, m, nodes, members, E, I, L, Kg, Kl, fg, dgu, edof):
         loc4 = 2 * mn2
 
         # actual global dof number:
-        localToGlobal = np.array([[loc1], [loc2], [loc3], [loc4]])
+        l2g_act = np.array([[loc1], [loc2], [loc3], [loc4]])
 
         # for properly index in programming:
-        l2g = np.array([[loc1-1], [loc2-1], [loc3-1], [loc4-1]])
+        l2g_prog = np.array([[loc1-1], [loc2-1], [loc3-1], [loc4-1]])
 
         x1 = nodes[mn1-1][0]  # node mn1 x1-coordinates
         x2 = nodes[mn2-1][0]  # node mn2 x2-coordinates
@@ -38,12 +38,12 @@ def processBeam(n, m, nodes, members, E, I, L, Kg, Kl, fg, dgu, edof):
         c = 2*E[i]*I[i] / l1**3
 
         elementK = c * np.array([
-            [6*c, -3*l1*c, -6*c, -3*l1*c],
-            [-3*l1*c, 2*c*l1**2, 3*l1*c, c*l1**2],
-            [-c*6, 3*c*l1, 6*c, 3*c*l1],
-            [-3*l1*c, c*l1**2, 3*l1*c, 2*c*l1**2]
+            [6, -3*l1, -6, -3*l1],
+            [-3*l1, 2*l1**2, 3*l1, l1**2],
+            [-6, 3*l1, 6, 3*l1],
+            [-3*l1, l1**2, 3*l1, 2*l1**2]
         ])
 
-        edof.append(localToGlobal)
+        edof.append(l2g_act)
         Kl.append(elementK)
         L.append(l1)
