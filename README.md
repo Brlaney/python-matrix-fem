@@ -114,14 +114,16 @@ git clone https://github.com/Brlaney/python-matrix-fem.git
 Note: you can do this many different ways - or you don't necessarily even need to start a virtual environment if you have all of the necessary dependencies. My reason for using one is to easily keep up with all of the dependencies used in the project. The instructions below are what work for me using my Windows terminal.
 
 ```bash
+# Step i.)
+
 virtualenv ll_env
 
 # or
 
 virtualenv <your-venv-name>
-```
 
-```bash
+# Step ii.)
+
 ll_env\scripts\activate.bat
 
 # or
@@ -141,6 +143,7 @@ ll_env\scripts\activate.bat
 truss1.py, truss2.py, and beam1.py are all example scripts I have written that model the figures 1, 2, & 3 shown in the Demo section above.
 
 ```bash
+# Can use truss2.py or beam1.py instead if desired.
 py truss1.py
 
 # or
@@ -149,8 +152,7 @@ python truss1.py
 
 ```
 
-Now navigate to [http://localhost:3000/](http://localhost:3000/) and check it out.
-
+The solution to the system should be output in your terminal after running the script.
 </br>
 
 ## Connect with me
