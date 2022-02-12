@@ -22,16 +22,16 @@ def processBeam(n, m, nodes, members, E, I, L, Kg, Kl, fg, dgu, t1, t2):
         loc4 = 2 * mn2        # Local dof4 --> global value(loc4)
 
         # The actual global dof's index:
-        l2g_act_row1 = np.array([[loc1, loc1],[loc1, loc2],[loc1, loc3],[loc1, loc4]])
-        l2g_act_row2 = np.array([[loc2, loc1],[loc2, loc2],[loc2, loc3],[loc2, loc4]])
-        l2g_act_row3 = np.array([[loc3, loc1],[loc3, loc2],[loc3, loc3],[loc3, loc4]])
-        l2g_act_row4 = np.array([[loc4, loc1],[loc4, loc2],[loc4, loc3],[loc4, loc4]])
+        act_row1 = np.array([[loc1, loc1],[loc1, loc2],[loc1, loc3],[loc1, loc4]])
+        act_row2 = np.array([[loc2, loc1],[loc2, loc2],[loc2, loc3],[loc2, loc4]])
+        act_row3 = np.array([[loc3, loc1],[loc3, loc2],[loc3, loc3],[loc3, loc4]])
+        act_row4 = np.array([[loc4, loc1],[loc4, loc2],[loc4, loc3],[loc4, loc4]])
         
         # To properly indexing in code:
-        l2g_prog_row1 = np.array([[loc1-1, loc1-1],[loc1-1, loc2-1],[loc1-1, loc3-1],[loc1-1, loc4-1]])
-        l2g_prog_row2 = np.array([[loc2-1, loc1-1],[loc2-1, loc2-1],[loc2-1, loc3-1],[loc2-1, loc4-1]])
-        l2g_prog_row3 = np.array([[loc3-1, loc1-1],[loc3-1, loc2-1],[loc3-1, loc3-1],[loc3-1, loc4-1]])
-        l2g_prog_row4 = np.array([[loc4-1, loc1-1],[loc4-1, loc2-1],[loc4-1, loc3-1],[loc4-1, loc4-1]])
+        prog_row1 = np.array([[loc1-1, loc1-1],[loc1-1, loc2-1],[loc1-1, loc3-1],[loc1-1, loc4-1]])
+        prog_row2 = np.array([[loc2-1, loc1-1],[loc2-1, loc2-1],[loc2-1, loc3-1],[loc2-1, loc4-1]])
+        prog_row3 = np.array([[loc3-1, loc1-1],[loc3-1, loc2-1],[loc3-1, loc3-1],[loc3-1, loc4-1]])
+        prog_row4 = np.array([[loc4-1, loc1-1],[loc4-1, loc2-1],[loc4-1, loc3-1],[loc4-1, loc4-1]])
 
         x1 = nodes[mn1-1][0]  # node mn1 x1-coordinates
         x2 = nodes[mn2-1][0]  # node mn2 x2-coordinates
@@ -50,7 +50,7 @@ def processBeam(n, m, nodes, members, E, I, L, Kg, Kl, fg, dgu, t1, t2):
             [-3*l1, l1**2, 3*l1, 2*l1**2]
         ])
 
-        t1.append([l2g_act_row1, l2g_act_row2, l2g_act_row3, l2g_act_row4])
-        t2.append([l2g_prog_row1, l2g_prog_row2, l2g_prog_row3, l2g_prog_row4])
+        t1.append([act_row1, act_row2, act_row3, act_row4])
+        t2.append([prog_row1, prog_row2, prog_row3, prog_row4])
         Kl.append(elemK)
         L.append(l1)

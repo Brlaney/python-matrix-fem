@@ -3,40 +3,34 @@
 from beam_analysis import processBeam
 import numpy as np
 
-
 # Node coordinates
 nodes = np.array([[0], [4], [6], [11]])
-
 
 # Member/element connection matrix
 members = np.array([[1, 2], [2, 3], [3, 4]])
 
-
-#   Pre-define arrays to contain each members;
+# Pre-define arrays to contain each members
 L = []                # length in meters
-n = len(nodes)         # number of nodes
-m = len(members)       # number of members
-E = np.repeat(1, 5)    # Modulus of elasticity kPa
-I = np.repeat(1, 5)    # Moment of inertia m^4
+n = len(nodes)        # number of nodes
+m = len(members)      # number of members
+E = np.repeat(1, 5)   # Modulus of elasticity kPa
+I = np.repeat(1, 5)   # Moment of inertia m^4
 
+Kl = []  # Will contain each elems local [k] (global coords)
 
-# Un-restrained/restrained global degrees of freedom - 1
+# Un-restrained/restrained global_dof-1
 dgu = np.array([2, 3, 5, 7])
 dgr = np.array([0, 1, 4, 6])
 fg = np.array([[2, -100]])     # External forces (kN)
-# ds = np.array([])
 Kg = np.zeros((2*n, 2*n))      # global stiffness matrix
-Kl = []  # Will contain each elems local [k] (global coords)
-edof = []
+# ds = np.array([])
 
 t1 = [] # Will contain each elements l2g_act
 t2 = [] # Will contain each elements l2g_prog
 
-
 # Calling our function
 processBeam(n, m, nodes, members, 
         E, I, L, Kg, Kl, fg, dgu, t1, t2)
-
 
 print('\nActual index value.')
 for i in range(m):
