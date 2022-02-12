@@ -30,20 +30,6 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-cover/
-
 .env
 .venv
 env/
@@ -51,7 +37,3 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-
-.mypy_cache/
-.dmypy.json
-dmypy.json
