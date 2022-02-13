@@ -1,5 +1,5 @@
 # Chapter (2.) Problem 2.3
-from truss_analysis import *
+from lib.trusses import *
 import numpy as np
 
 
@@ -11,7 +11,6 @@ nodes = np.array([
     [120, 0]
 ])
 
-
 # Member/element connection matrix
 members = np.array([
     [1, 2],
@@ -20,7 +19,6 @@ members = np.array([
     [2, 3],
     [3, 4]
 ])
-
 
 #   Pre-define arrays to contain each members;
 L1 = []            # length in inches
@@ -32,17 +30,13 @@ m = len(members)   # number of members
 A = np.repeat(2, 5)         # Cross-sectional areas (sq in)
 E = np.repeat(29*10**6, 5)  # Modulus of elasticity
 
-
-
 # Un-restrained/restrained global degrees of freedom - 1
 dgu = np.array([2, 3, 5, 7])
 dgr = np.array([0, 1, 4, 6])
 fg = np.array([[2, 40], [3, -30]]) # External forces (kips)
 
-
 Kl = []       # Each elems local [k] (global coords)
 Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
-
 
 processTruss(n, m, nodes, members, E, A, L1,
         L2, orient1, orient2, Kg, Kl, fg, dgu)

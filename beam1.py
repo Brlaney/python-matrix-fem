@@ -1,7 +1,8 @@
 # Reference ./beam_example_1.png
 # Chapter (2.) Problem 2.3
-from beam_analysis import processBeam
+from lib.beams import processBeam
 import numpy as np
+
 
 # Node coordinates
 nodes = np.array([[0], [4], [6], [11]])
