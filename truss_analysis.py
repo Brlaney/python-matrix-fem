@@ -97,10 +97,10 @@ def processTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, f
         coeff = (E[i]*A[i])/l1
 
         elementK = coeff * np.array([
-            [cs*cs, cs*sn, -cs*cs, -sn*sn],
-            [cs*sn, sn*sn, -cs*sn, -sn*sn],
-            [-cs*cs, -cs*sn, cs*cs, cs*sn],
-            [-cs*sn, -sn*sn, cs*sn, sn*sn]
+            [cs**2, cs*sn, -cs**2, -sn**2],
+            [cs*sn, sn**2, -cs*sn, -sn**2],
+            [-cs**2, -cs*sn, cs**2, cs*sn],
+            [-cs*sn, -sn**2, cs*sn, sn**2]
         ])
 
         '''
