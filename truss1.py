@@ -45,47 +45,75 @@ dp = np.array([ [1, -0.6], [6, -0.3]])
 
 Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
 Kl = []  # Will contain each elems local [k] (global coords)
-
+t1 = []
+t2 = []
 
 # Calling our function
 processTruss(n, m, nodes, members, E, A, L1,
-        L2, orient1, orient2, Kg, Kl, fg, dgu)
+        L2, orient1, orient2, Kg, Kl, fg, dgu, t1, t2)
 
 
-print('\n Length in inches')
+print('\n Length (in)')
 print(L1)
-print('\n Length in feet')
+print('\n Length (ft)')
 print(L2)
-print('\n Angles in degrees')
+print('\n Angles (degrees)')
 print(orient1)
-print('\n Angles in radians')
+print('\n Angles (radians)')
 print(orient2)
 
+print('\n', np.size(t1))
 
-'''
-for i in range(5):
-    p = i + 1
-    print('\n')
-    print('[k]el (global coordinates) for element no.:', p)
-    print(Kl[i])
+print('\nActual index value.')
+for i in range(m):
+    p = i+1
 
-print('\n')
-print(Kl)
+    v1 = t1[i][0][0]
+    v2 = t1[i][0][1]
+    v3 = t1[i][0][2]
+    v4 = t1[i][0][3]
+    v5 = t1[i][1][0]
+    v6 = t1[i][1][1]
+    v7 = t1[i][1][2]
+    v8 = t1[i][1][3]
+    v9 = t1[i][2][0]
+    v10 = t1[i][2][1]
+    v11 = t1[i][2][2]
+    v12 = t1[i][2][3]
+    v13 = t1[i][3][0]
+    v14 = t1[i][3][1]
+    v15 = t1[i][3][2]
+    v16 = t1[i][3][3]
 
+    print('\nLocal to global degrees of \nfreedom for member number', p)
+    print('Row 1: [', v1, '', v2, '', v3, '', v4, ']')
+    print('Row 2: [', v5, '', v6, '', v7, '', v8, ']')
+    print('Row 3: [', v9, '', v10, '', v11, '', v12, ']')
+    print('Row 4: [', v13, '', v14, '', v15, '', v16, ']')
 
-print('\n')
-print(Kl[0])
+print('\nIndexing in code value.')
+for i in range(m):
+    p = i+1
 
-print('\n')
-print(Kl[1])
+    v1 = t2[i][0][0]
+    v2 = t2[i][0][1]
+    v3 = t2[i][0][2]
+    v4 = t2[i][0][3]
+    v5 = t2[i][1][0]
+    v6 = t2[i][1][1]
+    v7 = t2[i][1][2]
+    v8 = t2[i][1][3]
+    v9 = t2[i][2][0]
+    v10 = t2[i][2][1]
+    v11 = t2[i][2][2]
+    v12 = t2[i][2][3]
+    v13 = t2[i][3][0]
+    v14 = t2[i][3][1]
+    v15 = t2[i][3][2]
+    v16 = t2[i][3][3]
 
-print('\n')
-print(Kl[2])
-
-print('\n')
-print(Kl[3])
-
-print('\n')
-print(Kl[4])
-
-'''
+    print('\nLocal to global degrees of \nfreedom for member number', p)
+    print('Row 1: [', v1, '', v2, '', v3, '', v4, ']')
+    print('Row 2: [', v5, '', v6, '', v7, '', v8, ']')
+    print('Row 3: [', v9, '', v10, '', v11, '', v12, ']')
+    print('Row 4: [', v13, '', v14, '', v15, '', v16, ']')

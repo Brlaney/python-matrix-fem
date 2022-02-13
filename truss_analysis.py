@@ -2,7 +2,7 @@ from math import sin, cos, atan, pi, radians, dist
 import numpy as np
 
 
-def lAndAng(p1, p2):
+def distAndAngle(p1, p2):
     '''
       The distance formula, returns Length (L) 
     between two points (x1, y1) and (x2, y2).
@@ -20,24 +20,15 @@ def lAndAng(p1, p2):
     First four cases: Quad-IV, III, II, & I.
     Last four cases:  theta = 90, 270, 0, 180.
     '''
-    if dx > 0 and dy < 0:
-        a1 = 360+atan(dy/dx)*(180/pi)
-    elif dx < 0 and dy < 0:
-        a1 = 270+atan(dy/dx)*(180/pi)
-    elif dx < 0 and dy > 0:
-        a1 = 180+atan(dy/dx)*(180/pi)
-    elif dx > 0 and dy > 0:
-        a1 = atan(dy/dx)*(180/pi)
-    elif dx == 0 and dy > 0:
-        a1 = 90
-    elif dx < 0 and dy == 0:
-        a1 = 180
-    elif dx == 0 and dy < 0:
-        a1 = 270
-    elif dx > 0 and dy == 0:
-        a1 = 0
-    else:
-        print('An error has occured. The system does not match any case.')
+    if dx > 0 and dy < 0: a1 = 360+atan(dy/dx)*(180/pi)
+    elif dx < 0 and dy < 0: a1 = 270+atan(dy/dx)*(180/pi)
+    elif dx < 0 and dy > 0: a1 = 180+atan(dy/dx)*(180/pi)
+    elif dx > 0 and dy > 0: a1 = atan(dy/dx)*(180/pi)
+    elif dx == 0 and dy > 0: a1 = 90
+    elif dx < 0 and dy == 0: a1 = 180
+    elif dx == 0 and dy < 0: a1 = 270
+    elif dx > 0 and dy == 0: a1 = 0
+    else: print('An error has occured. The system does not match any case.')
     
     # Convert from deg to rad
     a2 = radians(a1)
@@ -45,7 +36,7 @@ def lAndAng(p1, p2):
     return [L1, L2, a1, a2]
 
 
-def processTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, fg, dgu):
+def processTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, fg, dgu, t1, t2):
     '''
       The following for loop iterates for however 
     many members are defined in the given system.
@@ -63,19 +54,17 @@ def processTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, f
         dof3 = 2*mn2-1
         dof4 = 2*mn2
 
-        # actual global dof number:
-        localToGlobal = np.array([
-            [dof1],
-            [dof2],
-            [dof3],
-            [dof4]])
-
-        # for properly index in programming:
-        l2g = np.array([
-            [dof1-1],
-            [dof2-1],
-            [dof3-1],
-            [dof4-1]])
+        # The actual global dof's index:
+        act_row1 = np.array([[dof1, dof1],[dof1, dof2],[dof1, dof3],[dof1, dof4]])
+        act_row2 = np.array([[dof2, dof1],[dof2, dof2],[dof2, dof3],[dof2, dof4]])
+        act_row3 = np.array([[dof3, dof1],[dof3, dof2],[dof3, dof3],[dof3, dof4]])
+        act_row4 = np.array([[dof4, dof1],[dof4, dof2],[dof4, dof3],[dof4, dof4]])
+        
+        # To properly indexing in code:
+        prog_row1 = np.array([[dof1-1, dof1-1],[dof1-1, dof2-1],[dof1-1, dof3-1],[dof1-1, dof4-1]])
+        prog_row2 = np.array([[dof2-1, dof1-1],[dof2-1, dof2-1],[dof2-1, dof3-1],[dof2-1, dof4-1]])
+        prog_row3 = np.array([[dof3-1, dof1-1],[dof3-1, dof2-1],[dof3-1, dof3-1],[dof3-1, dof4-1]])
+        prog_row4 = np.array([[dof4-1, dof1-1],[dof4-1, dof2-1],[dof4-1, dof3-1],[dof4-1, dof4-1]])
 
         x1 = nodes[mn1-1][0]  # node mn1 x1-coordinates
         y1 = nodes[mn1-1][1]  # node mn1 y1-coordinates
@@ -86,34 +75,27 @@ def processTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, f
         n1 = (x1, y1)
         n2 = (x2, y2)
 
-        properties = lAndAng(n1, n2)
+        props = distAndAngle(n1, n2)
 
-        l1 = properties[0]
-        l2 = properties[1]
-        t1 = properties[2]
-        t2 = properties[3]
-        cs = cos(t2)
-        sn = sin(t2)
-        coeff = (E[i]*A[i])/l1
+        l1 = props[0]
+        l2 = props[1]
+        theta1 = props[2]
+        theta2 = props[3]
+        cs = cos(theta2)
+        sn = sin(theta2)
+        c = (E[i]*A[i])/l1
 
-        elementK = coeff * np.array([
+        elementK = c * np.array([
             [cs**2, cs*sn, -cs**2, -sn**2],
             [cs*sn, sn**2, -cs*sn, -sn**2],
             [-cs**2, -cs*sn, cs**2, cs*sn],
             [-cs*sn, -sn**2, cs*sn, sn**2]
         ])
 
-        '''
-        print('\n Element', p, 'local to global dofs are:')
-        print('\n')
-        print(localToGlobal[0])
-        print(localToGlobal[1])
-        print(localToGlobal[2])
-        print(localToGlobal[3])
-        '''
-
+        t1.append([act_row1, act_row2, act_row3, act_row4])
+        t2.append([prog_row1, prog_row2, prog_row3, prog_row4])
         L1.append(l1)
         L2.append(l2)
-        orient1.append(t1)
-        orient2.append(t2)
+        orient1.append(theta1)
+        orient2.append(theta2)
         Kl.append(elementK)

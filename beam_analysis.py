@@ -15,22 +15,22 @@ def processBeam(n, m, nodes, members, E, I, L, Kg, Kl, fg, dgu, t1, t2):
         mn1 = members[i][0]
         mn2 = members[i][1]
 
-        loc1 = 2 * mn1 - 1    # Local dof1 --> global value(loc1)
-        loc2 = 2 * mn1        # Local dof2 --> global value(loc2)
-        loc3 = 2 * mn2 - 1    # Local dof3 --> global value(loc3)
-        loc4 = 2 * mn2        # Local dof4 --> global value(loc4)
+        dof1 = 2*mn1-1     # Local dof1 --> global value(dof1)
+        dof2 = 2*mn1       # Local dof2 --> global value(dof2)
+        dof3 = 2*mn2-1     # Local dof3 --> global value(dof3)
+        dof4 = 2*mn2       # Local dof4 --> global value(dof4)
 
         # The actual global dof's index:
-        act_row1 = np.array([[loc1, loc1],[loc1, loc2],[loc1, loc3],[loc1, loc4]])
-        act_row2 = np.array([[loc2, loc1],[loc2, loc2],[loc2, loc3],[loc2, loc4]])
-        act_row3 = np.array([[loc3, loc1],[loc3, loc2],[loc3, loc3],[loc3, loc4]])
-        act_row4 = np.array([[loc4, loc1],[loc4, loc2],[loc4, loc3],[loc4, loc4]])
+        act_row1 = np.array([[dof1, dof1],[dof1, dof2],[dof1, dof3],[dof1, dof4]])
+        act_row2 = np.array([[dof2, dof1],[dof2, dof2],[dof2, dof3],[dof2, dof4]])
+        act_row3 = np.array([[dof3, dof1],[dof3, dof2],[dof3, dof3],[dof3, dof4]])
+        act_row4 = np.array([[dof4, dof1],[dof4, dof2],[dof4, dof3],[dof4, dof4]])
         
         # To properly indexing in code:
-        prog_row1 = np.array([[loc1-1, loc1-1],[loc1-1, loc2-1],[loc1-1, loc3-1],[loc1-1, loc4-1]])
-        prog_row2 = np.array([[loc2-1, loc1-1],[loc2-1, loc2-1],[loc2-1, loc3-1],[loc2-1, loc4-1]])
-        prog_row3 = np.array([[loc3-1, loc1-1],[loc3-1, loc2-1],[loc3-1, loc3-1],[loc3-1, loc4-1]])
-        prog_row4 = np.array([[loc4-1, loc1-1],[loc4-1, loc2-1],[loc4-1, loc3-1],[loc4-1, loc4-1]])
+        prog_row1 = np.array([[dof1-1, dof1-1],[dof1-1, dof2-1],[dof1-1, dof3-1],[dof1-1, dof4-1]])
+        prog_row2 = np.array([[dof2-1, dof1-1],[dof2-1, dof2-1],[dof2-1, dof3-1],[dof2-1, dof4-1]])
+        prog_row3 = np.array([[dof3-1, dof1-1],[dof3-1, dof2-1],[dof3-1, dof3-1],[dof3-1, dof4-1]])
+        prog_row4 = np.array([[dof4-1, dof1-1],[dof4-1, dof2-1],[dof4-1, dof3-1],[dof4-1, dof4-1]])
 
         x1 = nodes[mn1-1][0]  # node mn1 x1-coordinates
         x2 = nodes[mn2-1][0]  # node mn2 x2-coordinates
