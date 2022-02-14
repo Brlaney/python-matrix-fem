@@ -1,6 +1,7 @@
 from math import sin, cos, atan, pi, radians, dist
 import numpy as np
 
+
 def processBeam(n, m, nodes, members, E, I, L, Kg, Kl, fg, dgu, t1, t2):
     '''
       Applies the stiffness method to solve for member end shears (V)

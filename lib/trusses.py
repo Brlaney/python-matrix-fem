@@ -2,24 +2,9 @@ from math import sin, cos, atan, pi, radians, dist
 import numpy as np
 
 
-def distAndAngle(p1, p2):
-    '''
-      The distance formula, returns Length (L) 
-    between two points (x1, y1) and (x2, y2).
-    '''
-    L1 = dist(p1, p2)
-    L2 = L1 / 12
-    
-    # Change in x & y
-    dx = p2[0] - p1[0]
-    dy = p2[1] - p1[1]
-
-    '''
-      The following 8 cases address 
-    each possible condition for dx & dy.
-    First four cases: Quad-IV, III, II, & I.
-    Last four cases:  theta = 90, 270, 0, 180.
-    '''
+def calc_theta(dx, dy):
+    # First 4 cases: Quad-IV, III, II, & I
+    # Last 4 cases:  theta = 90, 180, 270, 0
     if dx > 0 and dy < 0: a1 = 360+atan(dy/dx)*(180/pi)
     elif dx < 0 and dy < 0: a1 = 270+atan(dy/dx)*(180/pi)
     elif dx < 0 and dy > 0: a1 = 180+atan(dy/dx)*(180/pi)
@@ -30,10 +15,8 @@ def distAndAngle(p1, p2):
     elif dx > 0 and dy == 0: a1 = 0
     else: print('An error has occured. The system does not match any case.')
     
-    # Convert from deg to rad
-    a2 = radians(a1)
-
-    return [L1, L2, a1, a2]
+    a2 = radians(a1)  # Convert from deg to rad
+    return [a1, a2]
 
 
 def processTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, fg, dgu, t1, t2):
@@ -71,16 +54,19 @@ def processTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, f
         x2 = nodes[mn2-1][0]  # node mn2 x2-coordinates
         y2 = nodes[mn2-1][1]  # node mn2 y2-coordinates
 
-        # Local elem node 1 & 2:
-        n1 = (x1, y1)
-        n2 = (x2, y2)
+        n1 = (x1, y1)  # Local node 1 coordinates
+        n2 = (x2, y2)  # Local node 2 coordinates
+       
+        dx = n2[0] - n1[0]  # delta_x
+        dy = n2[1] - n1[1]  # delta_y
+        
+        l1 = dist(n1, n2)   # Length (in)
+        l2 = l1 / 12        # Length (ft)
+        
+        angles = calc_theta(dx, dy)
 
-        props = distAndAngle(n1, n2)
-
-        l1 = props[0]
-        l2 = props[1]
-        theta1 = props[2]
-        theta2 = props[3]
+        theta1 = angles[0]
+        theta2 = angles[1]
         cs = cos(theta2)
         sn = sin(theta2)
         c = (E[i]*A[i])/l1
