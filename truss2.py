@@ -41,7 +41,14 @@ Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
 processTruss(n, m, nodes, members, E, A, L1,
         L2, orient1, orient2, Kg, Kl, fg, dgf)
 
+for i in range(m):
+    p = str(i + 1)
+    
+    filename = 'outputs/truss2/elem' + p + '.csv'
+    df = pd.DataFrame(Kl[i])
+    df.to_csv(filename, index=True)
 
+'''
 print('\n Length in inches')
 print(L1)
 print('\n Length in feet')
@@ -52,7 +59,6 @@ print('\n Angles in radians')
 print(orient2)
 
 
-'''
 print('\n')
 print(Kl)
 

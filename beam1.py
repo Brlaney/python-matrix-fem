@@ -33,6 +33,13 @@ t2 = []  # Will contain each elements l2g_prog
 processBeam(n, m, nodes, members, E, I,
             L, Kg, Kl, fg, dgu, t1, t2)
 
+for i in range(m):
+    p = str(i + 1)
+    
+    filename = 'outputs/beam1/elem' + p + '.csv'
+    df = pd.DataFrame(Kl[i])
+    df.to_csv(filename, index=True)
+
 '''
 print('\nActual index value.')
 for i in range(m):
