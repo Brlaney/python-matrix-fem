@@ -1,6 +1,7 @@
 # Chapter 2 lesson in textbook
 from lib.trusses import *
 import numpy as np
+import pandas as pd
 
 
 # Node coordinates
@@ -46,24 +47,33 @@ t2 = []
 processTruss(n, m, nodes, members, E, A, L1,
         L2, orient1, orient2, Kg, Kl, fg, dgf, t1, t2)
 
-print('\n')
+for i in range(m):
+    p = str(i + 1)
+    
+    filename = 'outputs/truss1/elem' + p + '.csv'
+    df = pd.DataFrame(Kl[i])
+    df.to_csv(filename, index=True)
+
+
+'''
+print('\nMatrix [Kl]g: \n')
 print(Kl)
 
-print('\n')
-print(len(Kl))
+print('\nLength of [Kl]g:', len(Kl))
 
 print('\n Length (in)')
 print(L1)
 print('\n Length (ft)')
 print(L2)
+
 print('\n Angles (degrees)')
 print(orient1)
 print('\n Angles (radians)')
 print(orient2)
 
-print('\n', np.size(t1))
+print('\nSize of t1 & t2:', np.size(t1))
 
-print('\nActual index value.')
+print('\nActual index values for each \nmember are displayed below.')
 for i in range(m):
     p = i+1
 
@@ -88,8 +98,10 @@ for i in range(m):
     print('Row 1: [', v1, '', v2, '', v3, '', v4, ']')
     print('Row 2: [', v5, '', v6, '', v7, '', v8, ']')
     print('Row 3: [', v9, '', v10, '', v11, '', v12, ']')
+    print('Row 4: [', v13, '', v14, '', v15, '', v16, ']')
 
-'''
+
+
 print('\nIndexing in code value.')
 for i in range(m):
     p = i+1

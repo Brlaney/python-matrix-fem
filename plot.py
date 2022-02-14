@@ -18,9 +18,4 @@ plt.plot(x0, y0)
 plt.plot(x1, y1)
 plt.plot(x2, y2)
 
-plt.xlabel('X-Coordinates')
-plt.ylabel('Y-Coordinates')
-plt.axis('tight')
-# plt.grid()
-
 plt.show()
