@@ -5,7 +5,6 @@ import pandas as pd
 import numpy as np
 
 
-
 # Node coordinates
 nodes = np.array([
     [0, 0],
