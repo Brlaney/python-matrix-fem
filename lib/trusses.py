@@ -19,7 +19,7 @@ def calc_theta(dx, dy):
     return [a1, a2]
 
 
-def processTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, fg, dgu, t1, t2):
+def processTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, fg, dgf, t1, t2):
     '''
       The following for loop iterates for however 
     many members are defined in the given system.
@@ -43,11 +43,13 @@ def processTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, f
         act_row3 = np.array([[dof3, dof1],[dof3, dof2],[dof3, dof3],[dof3, dof4]])
         act_row4 = np.array([[dof4, dof1],[dof4, dof2],[dof4, dof3],[dof4, dof4]])
         
+        b = np.array([[1,1],[1,1],[1,1],[1,1]])
+        
         # To properly indexing in code:
-        prog_row1 = np.array([[dof1-1, dof1-1],[dof1-1, dof2-1],[dof1-1, dof3-1],[dof1-1, dof4-1]])
-        prog_row2 = np.array([[dof2-1, dof1-1],[dof2-1, dof2-1],[dof2-1, dof3-1],[dof2-1, dof4-1]])
-        prog_row3 = np.array([[dof3-1, dof1-1],[dof3-1, dof2-1],[dof3-1, dof3-1],[dof3-1, dof4-1]])
-        prog_row4 = np.array([[dof4-1, dof1-1],[dof4-1, dof2-1],[dof4-1, dof3-1],[dof4-1, dof4-1]])
+        prog_row1 = act_row1 - b
+        prog_row2 = act_row2 - b
+        prog_row3 = act_row3 - b
+        prog_row4 = act_row4 - b
 
         x1 = nodes[mn1-1][0]  # node mn1 x1-coordinates
         y1 = nodes[mn1-1][1]  # node mn1 y1-coordinates
@@ -57,11 +59,11 @@ def processTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, f
         n1 = (x1, y1)  # Local node 1 coordinates
         n2 = (x2, y2)  # Local node 2 coordinates
        
-        dx = n2[0] - n1[0]  # delta_x
-        dy = n2[1] - n1[1]  # delta_y
+        dx = n2[0]-n1[0]  # delta_x
+        dy = n2[1]-n1[1]  # delta_y
         
         l1 = dist(n1, n2)   # Length (in)
-        l2 = l1 / 12        # Length (ft)
+        l2 = l1/12          # Length (ft)
         
         angles = calc_theta(dx, dy)
 
@@ -71,7 +73,7 @@ def processTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, f
         sn = sin(theta2)
         c = (E[i]*A[i])/l1
 
-        elementK = c * np.array([
+        elementK = c*np.array([
             [cs**2, cs*sn, -cs**2, -sn**2],
             [cs*sn, sn**2, -cs*sn, -sn**2],
             [-cs**2, -cs*sn, cs**2, cs*sn],

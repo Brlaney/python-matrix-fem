@@ -32,14 +32,14 @@ E = np.repeat(29*10**6, 5)  # Modulus of elasticity
 
 # Un-restrained/restrained global degrees of freedom - 1
 dgu = np.array([2, 3, 5, 7])
-dgr = np.array([0, 1, 4, 6])
+dgf = np.array([0, 0, 1, 1, 0, 0, 1, 1])
 fg = np.array([[2, 40], [3, -30]]) # External forces (kips)
 
 Kl = []       # Each elems local [k] (global coords)
 Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
 
 processTruss(n, m, nodes, members, E, A, L1,
-        L2, orient1, orient2, Kg, Kl, fg, dgu)
+        L2, orient1, orient2, Kg, Kl, fg, dgf)
 
 
 print('\n Length in inches')

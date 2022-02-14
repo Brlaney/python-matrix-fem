@@ -32,10 +32,8 @@ E = np.repeat(29*10**6, m)    # Modulus of elasticity for each element
 
 # External forces (lbs) in form: [global dof - 1, (+/-) value]
 fg = np.array([3, -30000])
-# Un-restrained global degrees of freedom - 1
-dgu = np.array([2, 3, 4, 5])
-# Restrained global degrees of freedom - 1
-dgr = np.array([0, 1, 6, 7])
+# 1 => Un-restrained global degrees of freedom
+dgf = np.array([0, 0, 1, 1, 1, 1, 0, 0])
 # given displacements:
 dp = np.array([ [1, -0.6], [6, -0.3]])
 
@@ -46,8 +44,13 @@ t2 = []
 
 # Calling our function
 processTruss(n, m, nodes, members, E, A, L1,
-        L2, orient1, orient2, Kg, Kl, fg, dgu, t1, t2)
+        L2, orient1, orient2, Kg, Kl, fg, dgf, t1, t2)
 
+print('\n')
+print(Kl)
+
+print('\n')
+print(len(Kl))
 
 print('\n Length (in)')
 print(L1)
@@ -85,8 +88,8 @@ for i in range(m):
     print('Row 1: [', v1, '', v2, '', v3, '', v4, ']')
     print('Row 2: [', v5, '', v6, '', v7, '', v8, ']')
     print('Row 3: [', v9, '', v10, '', v11, '', v12, ']')
-    print('Row 4: [', v13, '', v14, '', v15, '', v16, ']')
 
+'''
 print('\nIndexing in code value.')
 for i in range(m):
     p = i+1
@@ -113,3 +116,4 @@ for i in range(m):
     print('Row 2: [', v5, '', v6, '', v7, '', v8, ']')
     print('Row 3: [', v9, '', v10, '', v11, '', v12, ']')
     print('Row 4: [', v13, '', v14, '', v15, '', v16, ']')
+'''
