@@ -95,8 +95,8 @@ for i in range(m):
     print('Row 2: [', v5, '', v6, '', v7, '', v8, ']')
     print('Row 3: [', v9, '', v10, '', v11, '', v12, ']')
     print('Row 4: [', v13, '', v14, '', v15, '', v16, ']')
-'''
 
-# print(t2)
+print(t2)
 print('np size:', np.size(t2))
 print('np ndim:', np.ndim(t2))
+'''
