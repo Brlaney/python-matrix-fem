@@ -1,6 +1,9 @@
 # Chapter (2.) Problem 2.3
+# Reference ./truss_example_2.png
 from lib.trusses import *
+import pandas as pd
 import numpy as np
+
 
 
 # Node coordinates
@@ -31,15 +34,16 @@ A = np.repeat(2, 5)         # Cross-sectional areas (sq in)
 E = np.repeat(29*10**6, 5)  # Modulus of elasticity
 
 # Un-restrained/restrained global degrees of freedom - 1
-dgu = np.array([2, 3, 5, 7])
 dgf = np.array([0, 0, 1, 1, 0, 0, 1, 1])
 fg = np.array([[2, 40], [3, -30]]) # External forces (kips)
 
 Kl = []       # Each elems local [k] (global coords)
 Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
+t1 = []
+t2 = []
 
 processTruss(n, m, nodes, members, E, A, L1,
-        L2, orient1, orient2, Kg, Kl, fg, dgf)
+        L2, orient1, orient2, Kg, Kl, fg, dgf, t1, t2)
 
 for i in range(m):
     p = str(i + 1)

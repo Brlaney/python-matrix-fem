@@ -1,7 +1,8 @@
 # Chapter 2 lesson in textbook
+# Reference ./truss_example_1.png
 from lib.trusses import *
-import numpy as np
 import pandas as pd
+import numpy as np
 
 
 # Node coordinates

@@ -1,6 +1,7 @@
-# Reference ./beam_example_1.png
 # Chapter (2.) Problem 2.3
+# Reference ./beam_example_1.png
 from lib.beams import processBeam
+import pandas as pd
 import numpy as np
 
 
