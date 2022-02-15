@@ -36,7 +36,7 @@ processBeam(n, m, nodes, members, E, I,
 for i in range(m):
     p = str(i + 1)
     
-    filename = 'outputs/beam1/elem' + p + '.csv'
+    filename = 'outputs/beam11/elem' + p + '.csv'
     df = pd.DataFrame(Kl[i])
     df.to_csv(filename, index=True)
 '''
