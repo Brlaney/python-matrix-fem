@@ -4,7 +4,6 @@ from lib.beams import processBeam
 import pandas as pd
 import numpy as np
 
-
 # Node coordinates
 nodes = np.array([[0], [4], [6], [11]])
 
@@ -20,20 +19,20 @@ I = np.repeat(1, 5)   # Moment of inertia m^4
 
 Kl = []  # Will contain each elems local [k] (global coords)
 
-# Un-restrained/restrained global_dof-1
-dgu = np.array([2, 3, 5, 7])
-dgr = np.array([0, 1, 4, 6])
+# 1 => Un-restrained global degrees of freedom
+dgf = np.array([0, 0, 1, 1, 0, 1, 0, 1])
 fg = np.array([[2, -100]])     # External forces (kN)
 Kg = np.zeros((2*n, 2*n))      # global stiffness matrix
-# ds = np.array([])
+# ds = np.array([])              # Initial displacements
 
 t1 = []  # Will contain each elements l2g_act
 t2 = []  # Will contain each elements l2g_prog
 
 # Calling our function
 processBeam(n, m, nodes, members, E, I,
-            L, Kg, Kl, fg, dgu, t1, t2)
+            L, Kg, Kl, fg, dgf, t1, t2)
 
+'''
 for i in range(m):
     p = str(i + 1)
     
@@ -41,7 +40,6 @@ for i in range(m):
     df = pd.DataFrame(Kl[i])
     df.to_csv(filename, index=True)
 
-'''
 print('\nActual index value.')
 for i in range(m):
     p = i+1
