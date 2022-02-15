@@ -39,6 +39,7 @@ for i in range(m):
     filename = 'outputs/beam1/elem' + p + '.csv'
     df = pd.DataFrame(Kl[i])
     df.to_csv(filename, index=True)
+'''
 
 print('\nActual index value.')
 for i in range(m):
@@ -66,7 +67,8 @@ for i in range(m):
     print('Row 2: [', v5, '', v6, '', v7, '', v8, ']')
     print('Row 3: [', v9, '', v10, '', v11, '', v12, ']')
     print('Row 4: [', v13, '', v14, '', v15, '', v16, ']')
-
+    
+'''
 print('\nIndexing in code value.')
 for i in range(m):
     p = i+1
