@@ -7,9 +7,6 @@
 </div>
 <div align="center">
   <p>
-    <a href="https://github.com/brlaney/python-matrix-fem/commits/master">
-      <img src="https://img.shields.io/github/last-commit/brlaney/python-matrix-fem?style=flat-square">
-    </a>
     <a href="#status">
       <img src="https://img.shields.io/badge/Maintained-yes-green.svg?style=flat-square">
     </a>
