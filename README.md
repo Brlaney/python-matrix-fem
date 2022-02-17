@@ -1,6 +1,6 @@
 <div align="center" id="top">
   <img
-    src="https://user-images.githubusercontent.com/64326462/154530046-c2ae7064-2948-47ba-ae7f-d2c01556c52c.svg"
+    src="https://user-images.githubusercontent.com/64326462/154530618-fe4635e6-3884-42e3-9f51-d46541306b79.png"
     alt="python-matrix-fem"
   />
 </div>
