@@ -12,6 +12,8 @@ nodes = np.array([
     [120, 0]
 ])
 
+nodes = (1/12) * np.array([[0, 0],[120, 120],[240, 0],[120, 0]])
+
 # Member/element connection matrix
 members = np.array([
     [1, 2],
@@ -49,6 +51,7 @@ for i in range(m):
     filename = 'outputs/truss2/elem' + p + '.csv'
     df = pd.DataFrame(Kl[i])
     df.to_csv(filename, index=True)
+'''
 
 print('\n Length in inches')
 print(L1)
@@ -59,6 +62,7 @@ print(orient1)
 print('\n Angles in radians')
 print(orient2)
 
+'''
 print('\n')
 print(Kl)
 
