@@ -1,8 +1,7 @@
 <div align="center" id="top">
   <img
-    src="https://user-images.githubusercontent.com/64326462/134097233-d1484521-9ee7-4160-832c-c0bd18a1b07d.png"
-    alt="Mtrx_Logo"
-    style="margin: 0; padding: 0;"
+    src="https://user-images.githubusercontent.com/64326462/154530046-c2ae7064-2948-47ba-ae7f-d2c01556c52c.svg"
+    alt="python-matrix-fem"
   />
 </div>
 <div align="center">
