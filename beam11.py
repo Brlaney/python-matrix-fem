@@ -25,12 +25,15 @@ fg = np.array([[2, -100]])     # External forces (kN)
 Kg = np.zeros((2*n, 2*n))      # global stiffness matrix
 # ds = np.array([])              # Initial displacements
 
+# fixed-end moment vector for members 1 and 2
+fem = np.array([0, 0, 0, 0, 0, 0])
+
 t1 = []  # Will contain each elements l2g_act
 t2 = []  # Will contain each elements l2g_prog
 
 # Calling our function
-processBeam(n, m, nodes, members, E, I,
-            L, Kg, Kl, fg, dgf, t1, t2)
+processBeam(nodes, members, n, m, L, E, I,
+            Kl, dgf, fg, Kg, fem, t1, t2)
 
 '''
 for i in range(m):
