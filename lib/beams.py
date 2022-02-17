@@ -1,4 +1,4 @@
-# beams.py
+# lib/beams.py
 from math import sin, cos, atan, pi, radians, dist
 import numpy as np
 

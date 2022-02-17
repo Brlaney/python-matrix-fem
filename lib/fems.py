@@ -1,7 +1,19 @@
-# fixed-end-moments.py
+# lib/fems.py
 from math import sin, cos, atan, pi, radians, dist
 import numpy as np
 
+'''
+Function inputs:
+
+a: distance from left-end to the applied external load (P)
+b: distance from the applied external load (P) to the right-end
+P: magnitude of point load
+u: constant integer defining system of units
+w: magnitude of distributed load
+L: length of member
+wl: value of distributed load at left-end
+wr: value of distributed load at right-end
+'''
 
 def detUnits(u):
     ''' Calculates the member-end shear forces 
@@ -30,18 +42,6 @@ def detUnits(u):
     return units
 
 
-def unifDistributed(w, L, u):
-    v1 = w * L / 2
-    m1 = -w * L**2 / 12
-    v2 = w * L / 2
-    m2 = -w * L**2 / 12
-
-    fem = np.array([v1, m1, v2, m2])
-    units = detUnits(u)
-
-    return [fem, units]
-
-
 def pointLoad(a, b, P, u):
     if a == b:
         v1 = P / 2
@@ -64,4 +64,44 @@ def pointLoad(a, b, P, u):
     fem = np.array([v1, m1, v2, m2])
     units = detUnits(u)
 
+    return [fem, units]
+
+
+def unifDistr(w, L, u):
+    v1 = w * L / 2
+    m1 = -w * L**2 / 12
+    v2 = w * L / 2
+    m2 = -w * L**2 / 12
+
+    fem = np.array([v1, m1, v2, m2])
+    units = detUnits(u)
+
+    return [fem, units]
+
+
+def triangDistr(wl, wr, L, u):
+    # Descending right triangular distributed load
+    if wl > wr and wr == 0:
+        w = wl
+        
+        v1 = 7 * w * L / 20
+        m1 = - w * L**2 / 20
+        v2 = 3 * w * L / 20
+        m2 = w * L**2 / 30
+
+    # Ascending right triangular distributed load
+    elif wr > wl and wl == 0:
+        w = wr
+        
+        v1 = 3 * w * L / 20
+        m1 = - w * L**2 / 30
+        v2 = 7 * w * L / 20
+        m2 = w * L**2 / 20
+
+    else: 
+        print('Error, please check your inputs for the function.')
+    
+    fem = np.array([v1, m1, v2, m2])
+    units = detUnits(u)
+    
     return [fem, units]

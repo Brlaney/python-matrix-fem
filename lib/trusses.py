@@ -1,4 +1,4 @@
-# trusses.py
+# lib/trusses.py
 from math import sin, cos, atan, pi, radians, dist
 import numpy as np
 
