@@ -11,9 +11,9 @@ nodes = np.array([[0], [6], [11]])
 members = np.array([[1, 2], [2, 3]])
 
 # Pre-define arrays to contain each members
-L = []                # length in meters
 n = len(nodes)        # number of nodes
 m = len(members)      # number of members
+L = []                # length in meters
 E = np.repeat(1, 2)   # Modulus of elasticity kPa
 I = np.repeat(1, 2)   # Moment of inertia m^4
 
@@ -25,12 +25,24 @@ fg = np.zeros((2*n))           # External forces (kN)
 Kg = np.zeros((2*n, 2*n))      # global stiffness matrix
 # ds = np.array([])              # Initial displacements
 
+# fixed-end moment vector for members 1 and 2
+fem = np.array([74, -88.9, 75.9, 2.7, 50, -41.7])
+
 t1 = []  # Will contain each elements l2g_act
 t2 = []  # Will contain each elements l2g_prog
 
 # Calling our function
-processBeam(n, m, nodes, members, E, I,
-            L, Kg, Kl, fg, dgf, t1, t2)
+processBeam(nodes, members, n, m, L, E, I,
+            Kl, dgf, fg, Kg, fem, t1, t2)
+
+print('\n')
+print(t1)
+print('\n')
+print(np.size(t1))
+print('\n')
+print(len(t1))
+print('\n')
+print(np.ndim(t1))
 
 '''
 for i in range(m):

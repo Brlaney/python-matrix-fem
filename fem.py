@@ -8,6 +8,8 @@ function script from /lib and implement on a elem.
 
 # The following tests the output of 
 # beam1's uniformly distributed load.
+
+# Test 1
 '''
 w = 20   # units: (kN/m)
 L = 5    # units: (m)
@@ -22,8 +24,9 @@ print('\nUnits:')
 print(fem_vect1[1])
 '''
 
-# The following tests the output of 
-# beam1's point load for method 2 elem 1.
+
+# Test 2
+
 P = 100   # units: (kN/m)
 a = 4     # units: (m)
 b = 2     # units: (m)
