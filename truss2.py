@@ -4,15 +4,14 @@ from lib.trusses import *
 import pandas as pd
 import numpy as np
 
-# Node coordinates
+
+# Node coordinates (in)
 nodes = np.array([
     [0, 0],
     [120, 120],
     [240, 0],
     [120, 0]
 ])
-
-nodes = (1/12) * np.array([[0, 0],[120, 120],[240, 0],[120, 0]])
 
 # Member/element connection matrix
 members = np.array([
