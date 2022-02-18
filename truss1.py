@@ -44,5 +44,7 @@ t1 = []
 t2 = []
 
 
-processTruss(n, m, nodes, members, E, A, L1,
+newKg = processTruss(n, m, nodes, members, E, A, L1,
         L2, orient1, orient2, Kg, Kl, fg, dgf, t1, t2)
+
+print(newKg)

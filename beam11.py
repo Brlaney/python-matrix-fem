@@ -33,5 +33,7 @@ t1 = []  # Will contain each elements l2g_act
 t2 = []  # Will contain each elements l2g_prog
 
 
-processBeam(nodes, members, n, m, L, E, I,
+newKg = processBeam(nodes, members, n, m, L, E, I,
             Kl, dgf, fg, Kg, fem, t1, t2)
+
+print(newKg)

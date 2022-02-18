@@ -26,8 +26,8 @@ def processTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, f
     many members are defined in the given system.
     '''
     for i in range(m):
-        newK = np.zeros((2*n, 2*n))
         p = i + 1    # Unique key id (starts at 1)
+        newK = np.zeros((2*n, 2*n))
 
         # For member number: i, map nodes: mn1 --> mn2
         mn1 = members[i][0]
@@ -156,8 +156,11 @@ def processTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, f
         newK[j_43][k_43] = elemK[3][2]
         newK[j_44][k_44] = elemK[3][3]
         
-        print(newK)
-
+        # Copy for intermediate array
+        Kg_2 = np.copy(Kg)
+        
+        Kg = Kg_2 + newK
+        
         t1.append([act_row1, act_row2, act_row3, act_row4])
         t2.append([prog_row1, prog_row2, prog_row3, prog_row4])
         L1.append(l1)
@@ -165,3 +168,9 @@ def processTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, f
         orient1.append(theta1)
         orient2.append(theta2)
         Kl.append(elemK)
+        
+    # Only copy the return value Kg IF 
+    # the for loop above has finished!
+    newKg = np.copy(Kg)
+
+    return newKg

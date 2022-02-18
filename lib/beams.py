@@ -130,12 +130,18 @@ def processBeam(nodes, members, n, m, L, E, I,
         newK[j_43][k_43] = elemK[3][2]
         newK[j_44][k_44] = elemK[3][3]
         
-        print(newK)
+        # Copy for intermediate array
+        Kg_2 = np.copy(Kg)
         
-        K = np.copy(newK)
-
+        Kg = Kg_2 + newK
 
         t1.append([act_row1, act_row2, act_row3, act_row4])
         t2.append([prog_row1, prog_row2, prog_row3, prog_row4])
         Kl.append(elemK)
         L.append(l1)
+
+    # Only copy the return value Kg IF 
+    # the for loop above has finished!
+    newKg = np.copy(Kg)
+
+    return newKg
