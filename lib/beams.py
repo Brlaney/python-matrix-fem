@@ -28,12 +28,14 @@ def processBeam(nodes, members, n, m, L, E, I,
         act_row2 = np.array([[dof2, dof1],[dof2, dof2],[dof2, dof3],[dof2, dof4]])
         act_row3 = np.array([[dof3, dof1],[dof3, dof2],[dof3, dof3],[dof3, dof4]])
         act_row4 = np.array([[dof4, dof1],[dof4, dof2],[dof4, dof3],[dof4, dof4]])
+        
+        b = np.array([[1,1],[1,1],[1,1],[1,1]])
 
-        # To properly indexing in code:
-        prog_row1 = np.array([[dof1-1, dof1-1],[dof1-1, dof2-1],[dof1-1, dof3-1],[dof1-1, dof4-1]])
-        prog_row2 = np.array([[dof2-1, dof1-1],[dof2-1, dof2-1],[dof2-1, dof3-1],[dof2-1, dof4-1]])
-        prog_row3 = np.array([[dof3-1, dof1-1],[dof3-1, dof2-1],[dof3-1, dof3-1],[dof3-1, dof4-1]])
-        prog_row4 = np.array([[dof4-1, dof1-1],[dof4-1, dof2-1],[dof4-1, dof3-1],[dof4-1, dof4-1]])
+        # To properly index in code:
+        prog_row1 = act_row1 - b
+        prog_row2 = act_row2 - b
+        prog_row3 = act_row3 - b
+        prog_row4 = act_row4 - b
 
         x1 = nodes[mn1-1][0]  # node mn1 x1-coordinates
         x2 = nodes[mn2-1][0]  # node mn2 x2-coordinates

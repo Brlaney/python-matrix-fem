@@ -1,5 +1,5 @@
 # Chapter (2.) Problem 2.3
-# Reference ./truss_example_2.png
+# Reference truss_example_2.png
 from lib.trusses import *
 import pandas as pd
 import numpy as np
@@ -40,63 +40,6 @@ Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
 t1 = []
 t2 = []
 
+
 processTruss(n, m, nodes, members, E, A, L1,
         L2, orient1, orient2, Kg, Kl, fg, dgf, t1, t2)
-
-'''
-for i in range(m):
-    p = str(i + 1)
-    
-    filename = 'outputs/truss2/elem' + p + '.csv'
-    df = pd.DataFrame(Kl[i])
-    df.to_csv(filename, index=True)
-'''
-
-print('\n Length in inches')
-print(L1)
-print('\n Length in feet')
-print(L2)
-print('\n Angles in degrees')
-print(orient1)
-print('\n Angles in radians')
-print(orient2)
-
-'''
-print('\n')
-print(Kl)
-
-print('\n')
-print(Kl[0])
-
-print('\n')
-print(Kl[1])
-
-print('\n')
-print(Kl[2])
-
-print('\n')
-print(Kl[3])
-
-print('\n')
-print(Kl[4])
-'''
-
-''' Test the outputs
-print('\n Elements lengths (in)')
-print(L1)
-
-print('\n Elements lengths (ft)')
-print(L2)
-
-print('\n Elements orientation (deg)')
-print(orient1)
-
-print('\n Elements orientation (rad)')
-print(orient2)
-
-for i in range(5):
-    p = i + 1
-    print('\n')
-    print('[k]el (global coordinates) for element no.:', p)
-    print(Kl[i])
-'''
