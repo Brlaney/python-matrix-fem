@@ -3,7 +3,7 @@ from math import sin, cos, atan, pi, radians, dist
 import numpy as np
 
 
-def processBeam(nodes, members, n, m, L, E, I, 
+def KgBeam(nodes, members, n, m, L, E, I, 
                 Kl, dgf, fg, Kg, fem, t1, t2):
     '''
         Applies the stiffness method to solve for member end shears (V)

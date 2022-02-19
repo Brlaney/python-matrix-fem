@@ -1,6 +1,6 @@
 # Chapter (2.) Problem 2.3
 # Reference beam_example_1.png
-from lib.beams import processBeam
+from lib.beams import *
 import pandas as pd
 import numpy as np
 
@@ -33,7 +33,7 @@ t1 = []  # Will contain each elements l2g_act
 t2 = []  # Will contain each elements l2g_prog
 
 
-newKg = processBeam(nodes, members, n, m, L, E, I,
+newKg = KgBeam(nodes, members, n, m, L, E, I,
             Kl, dgf, fg, Kg, fem, t1, t2)
 
 print(newKg)

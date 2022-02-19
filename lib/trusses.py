@@ -4,23 +4,25 @@ import numpy as np
 
 
 def calc_theta(dx, dy):
-    # First 4 cases: Quad-IV, III, II, & I
-    # Last 4 cases:  theta = 90, 180, 270, 0
+    '''
+    First 4 cases: Quad-IV, III, II, & I
+    Last 4 cases:  theta = 0, 90, 180, 270
+    ''' 
     if dx > 0 and dy < 0: a1 = 360+atan(dy/dx)*(180/pi)
     elif dx < 0 and dy < 0: a1 = 270+atan(dy/dx)*(180/pi)
     elif dx < 0 and dy > 0: a1 = 180+atan(dy/dx)*(180/pi)
     elif dx > 0 and dy > 0: a1 = atan(dy/dx)*(180/pi)
+    elif dx > 0 and dy == 0: a1 = 0
     elif dx == 0 and dy > 0: a1 = 90
     elif dx < 0 and dy == 0: a1 = 180
     elif dx == 0 and dy < 0: a1 = 270
-    elif dx > 0 and dy == 0: a1 = 0
     else: print('An error has occured. The system does not match any case.')
     
     a2 = radians(a1)  # Convert from deg to rad
     return [a1, a2]
 
 
-def processTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, fg, dgf, t1, t2):
+def KgTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, fg, dgf, t1, t2):
     '''
       The following for loop iterates for however 
     many members are defined in the given system.
@@ -45,13 +47,13 @@ def processTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, f
         act_row3 = np.array([[dof3, dof1],[dof3, dof2],[dof3, dof3],[dof3, dof4]])
         act_row4 = np.array([[dof4, dof1],[dof4, dof2],[dof4, dof3],[dof4, dof4]])
         
-        b = np.array([[1,1],[1,1],[1,1],[1,1]])
+        b = np.array([-1,-1])
         
         # To properly index in code:
-        prog_row1 = act_row1 - b
-        prog_row2 = act_row2 - b
-        prog_row3 = act_row3 - b
-        prog_row4 = act_row4 - b
+        prog_row1 = act_row1 + b
+        prog_row2 = act_row2 + b
+        prog_row3 = act_row3 + b
+        prog_row4 = act_row4 + b
 
         x1 = nodes[mn1-1][0]  # node mn1 x1-coordinates
         y1 = nodes[mn1-1][1]  # node mn1 y1-coordinates
