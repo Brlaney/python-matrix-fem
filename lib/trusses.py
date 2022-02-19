@@ -25,6 +25,7 @@ def processTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, f
       The following for loop iterates for however 
     many members are defined in the given system.
     '''
+    
     for i in range(m):
         p = i + 1    # Unique key id (starts at 1)
         newK = np.zeros((2*n, 2*n))
@@ -172,5 +173,5 @@ def processTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, f
     # Only copy the return value Kg IF 
     # the for loop above has finished!
     newKg = np.copy(Kg)
-
+    
     return newKg

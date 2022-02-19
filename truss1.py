@@ -1,9 +1,8 @@
 # Chapter 2 lesson in textbook
 # Reference truss_example_1.png
+# import pandas as pd
 from lib.trusses import *
-import pandas as pd
 import numpy as np
-
 
 # Node coordinates
 nodes = np.array([
