@@ -1,8 +1,11 @@
 # Chapter (2.) Problem 2.3
 # Reference beam_example_1.png
+# import pandas as pd
 from lib.beams import *
-import pandas as pd
 import numpy as np
+import time
+
+start_time = time.time() # Starting time
 
 
 # Node coordinates (modeled with 3 nodes)
@@ -22,18 +25,19 @@ Kl = []  # Will contain each elems local [k] (global coords)
 
 # 1 => Un-restrained global degrees of freedom
 dgf = np.array([0, 0, 0, 1, 0, 1])
-fg = np.zeros((2*n))           # External forces (kN)
-Kg = np.zeros((2*n, 2*n))      # global stiffness matrix
+fg = np.zeros((2*n))             # External forces (kN)
+Kg = np.zeros((2*n, 2*n))        # global stiffness matrix
 # ds = np.array([])              # Initial displacements
 
 # fixed-end moment vector for members 1 and 2
 fem = np.array([74, -88.9, 75.9, 2.7, 50, -41.7])
 
-t1 = []  # Will contain each elements l2g_act
-t2 = []  # Will contain each elements l2g_prog
-
-
 newKg = KgBeam(nodes, members, n, m, L, E, I,
-            Kl, dgf, fg, Kg, fem, t1, t2)
+            Kl, dgf, fg, Kg, fem)
 
 print(newKg)
+
+end_time = time.time() # End time when code finishes
+final_time = end_time - start_time
+final_r = round(final_time, 8)
+print('\nFinal time:', final_r)

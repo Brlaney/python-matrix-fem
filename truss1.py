@@ -7,6 +7,7 @@ import time
 
 start_time = time.time() # Starting time
 
+
 # Node coordinates
 nodes = np.array([
     [0, 0],
@@ -26,8 +27,8 @@ members = np.array([
 
 L1 = []                       # length in inches
 L2 = []                       # length in feet
-orient1 = []                  # units: degrees
-orient2 = []                  # units: radians
+a1 = []                       # units: degrees
+a2 = []                       # units: radians
 n = len(nodes)                # number of nodes
 m = len(members)              # number of members
 A = np.repeat(2, m)           # Cross-sectional areas of each element
@@ -45,15 +46,12 @@ Kl = []  # Will contain each elems local [k] (global coords)
 t1 = []
 t2 = []
 
-
 newKg = KgTruss(n, m, nodes, members, E, A, L1,
-        L2, orient1, orient2, Kg, Kl, fg, dgf, t1, t2)
+        L2, a1, a2, Kg, Kl, fg, dgf)
 
-
-print(newKg)
-
+# print(newKg)
 
 end_time = time.time() # End time when code finishes
 final_time = end_time - start_time
-final_r = round(final_time, 8)
-print('\nFinal time:', final_r)
+final_r = round(final_time, 7)
+print('\nTime elapsed:', final_r)

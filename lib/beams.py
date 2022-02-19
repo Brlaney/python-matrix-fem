@@ -3,12 +3,9 @@ from math import sin, cos, atan, pi, radians, dist
 import numpy as np
 
 
-def KgBeam(nodes, members, n, m, L, E, I, 
-                Kl, dgf, fg, Kg, fem, t1, t2):
+def KgBeam(nodes, members, n, m, L, E, I, Kl, dgf, fg, Kg, fem):
     '''
-        Applies the stiffness method to solve for member end shears (V)
-    and member end bending moments (M) along with vertical displacements
-    (dy) and rotation angle (dM) at each node.
+    Assembles the global stiffness matrix [K]g for the given beam system.
     '''
     for i in range(m):
         p = i + 1  # actual member number
@@ -130,18 +127,14 @@ def KgBeam(nodes, members, n, m, L, E, I,
         newK[j_43][k_43] = elemK[3][2]
         newK[j_44][k_44] = elemK[3][3]
         
-        # Copy for intermediate array
-        Kg_2 = np.copy(Kg)
-        
-        Kg = Kg_2 + newK
+        Kg_2 = np.copy(Kg) # Copy of Kg thus far
+        Kg = Kg_2 + newK   # Add the newK to Kg
 
-        t1.append([act_row1, act_row2, act_row3, act_row4])
-        t2.append([prog_row1, prog_row2, prog_row3, prog_row4])
         Kl.append(elemK)
         L.append(l1)
 
     # Only copy the return value Kg IF 
-    # the for loop above has finished!
+    # the for loop above has finished.
     newKg = np.copy(Kg)
 
     return newKg

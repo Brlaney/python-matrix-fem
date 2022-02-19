@@ -22,7 +22,7 @@ def calc_theta(dx, dy):
     return [a1, a2]
 
 
-def KgTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, fg, dgf, t1, t2):
+def KgTruss(n, m, nodes, members, E, A, L1, L2, a1, a2, Kg, Kl, fg, dgf):
     '''
       The following for loop iterates for however 
     many members are defined in the given system.
@@ -54,27 +54,33 @@ def KgTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, fg, dg
         prog_row2 = act_row2 + b
         prog_row3 = act_row3 + b
         prog_row4 = act_row4 + b
+        
+        kij = np.array([prog_row1, prog_row2, prog_row3, prog_row4])
+        
+        '''
+        print(kij[0][0])
+        print(kij[0][1])
+        print(kij[0][2])
+        print(kij[0][3])
+        '''
 
-        x1 = nodes[mn1-1][0]  # node mn1 x1-coordinates
-        y1 = nodes[mn1-1][1]  # node mn1 y1-coordinates
-        x2 = nodes[mn2-1][0]  # node mn2 x2-coordinates
-        y2 = nodes[mn2-1][1]  # node mn2 y2-coordinates
-
-        n1 = (x1, y1)  # Local node 1 coordinates
-        n2 = (x2, y2)  # Local node 2 coordinates
+        # Local elem n1 & n2 coordinates
+        n1 = (nodes[mn1-1][0], nodes[mn1-1][1])  
+        n2 = (nodes[mn2-1][0], nodes[mn2-1][1])  
        
         dx = n2[0]-n1[0]  # delta_x
         dy = n2[1]-n1[1]  # delta_y
         
         l1 = dist(n1, n2)   # Length (in)
         l2 = l1/12          # Length (ft)
-        
+
         angles = calc_theta(dx, dy)
 
-        theta1 = angles[0]
-        theta2 = angles[1]
+        theta1 = angles[0]   # radians
+        theta2 = angles[1]   # degrees
         cs = cos(theta2)
         sn = sin(theta2)
+
         c = (E[i]*A[i])/l1
 
         elemK = c*np.array([
@@ -83,6 +89,12 @@ def KgTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, fg, dg
             [-cs**2, -cs*sn, cs**2, cs*sn],
             [-cs*sn, -sn**2, cs*sn, sn**2]
         ])
+        
+        '''
+        for j in range(len(kij)):
+            j_n1 = kij[j][0]
+            k_n1 = kij[j][1]
+        '''
         
         # Row 1        
         j_11 = prog_row1[0][0]
@@ -101,7 +113,6 @@ def KgTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, fg, dg
         newK[j_12][k_12] = elemK[0][1]
         newK[j_13][k_13] = elemK[0][2]
         newK[j_14][k_14] = elemK[0][3]
-        
 
         # Row 2 
         j_21 = prog_row2[0][0]
@@ -121,7 +132,6 @@ def KgTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, fg, dg
         newK[j_23][k_23] = elemK[1][2]
         newK[j_24][k_24] = elemK[1][3]
 
-
         # Row 3       
         j_31 = prog_row3[0][0]
         k_31 = prog_row3[0][1]
@@ -139,7 +149,6 @@ def KgTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, fg, dg
         newK[j_32][k_32] = elemK[2][1]
         newK[j_33][k_33] = elemK[2][2]
         newK[j_34][k_34] = elemK[2][3]
-
 
         # Row 4
         j_41 = prog_row4[0][0]
@@ -159,17 +168,13 @@ def KgTruss(n, m, nodes, members, E, A, L1, L2, orient1, orient2, Kg, Kl, fg, dg
         newK[j_43][k_43] = elemK[3][2]
         newK[j_44][k_44] = elemK[3][3]
         
-        # Copy for intermediate array
-        Kg_2 = np.copy(Kg)
+        Kg_2 = np.copy(Kg) # Copy of Kg thus far
+        Kg = Kg_2 + newK   # Add the newK to Kg
         
-        Kg = Kg_2 + newK
-        
-        t1.append([act_row1, act_row2, act_row3, act_row4])
-        t2.append([prog_row1, prog_row2, prog_row3, prog_row4])
         L1.append(l1)
         L2.append(l2)
-        orient1.append(theta1)
-        orient2.append(theta2)
+        a1.append(theta1)
+        a2.append(theta2)
         Kl.append(elemK)
         
     # Only copy the return value Kg IF 
