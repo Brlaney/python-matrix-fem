@@ -70,12 +70,12 @@ for i in range(m):
 
 
 '''
-print('\n Length in inches')
+print('\nLength in inches')
 print(L1)
-print('\n Length in feet')
+print('\nLength in feet')
 print(L2)
-print('\n Angles in degrees')
-print(orient1)
-print('\n Angles in radians')
-print(orient2)
+print('\nAngles in degrees')
+print(a1)
+print('\nAngles in radians')
+print(a2)
 '''
