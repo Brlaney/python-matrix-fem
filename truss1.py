@@ -7,14 +7,12 @@ import time
 
 start_time = time.time() # Starting time
 
-
 # Node coordinates
 nodes = np.array([
     [0, 0],
     [120, 120],
     [240, 120],
-    [360, 0]
-])
+    [360, 0]])
 
 # Member connection matrix
 members = np.array([
@@ -22,8 +20,7 @@ members = np.array([
     [2, 3],
     [3, 4],
     [1, 3],
-    [2, 4]
-])
+    [2, 4]])
 
 L1 = []                       # length in inches
 L2 = []                       # length in feet
@@ -34,10 +31,10 @@ m = len(members)              # number of members
 A = np.repeat(2, m)           # Cross-sectional areas of each element
 E = np.repeat(29*10**6, m)    # Modulus of elasticity for each element
 
-# External forces (lbs) in form: [global dof - 1, (+/-) value]
-fg = np.array([3, -30000])
 # 1 => Un-restrained global degrees of freedom
 dgf = np.array([0, 0, 1, 1, 1, 1, 0, 0])
+# External forces (lbs) in form: [global dof - 1, (+/-) value]
+fg = np.array([3, -30000])
 # given displacements:
 dp = np.array([ [1, -0.6], [6, -0.3]])
 
