@@ -10,6 +10,25 @@ for i in range(m):
 
 
 '''
+print(newKg)
+df = pd.DataFrame(newKg)
+df.to_csv('outputs/truss1/globalK.csv', index=True)
+'''
+
+
+'''
+import time
+
+start_time = time.time() # Starting time
+
+end_time = time.time() # End time when code finishes
+final_time = end_time - start_time
+final_r = round(final_time, 7)
+print('\nTime elapsed:', final_r)
+'''
+
+
+'''
 print('\nActual index value.')
 for i in range(m):
     p = i+1

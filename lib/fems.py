@@ -44,6 +44,7 @@ def detUnits(u):
 
 def pointLoad(a, b, P, u):
     if a == b:
+        L = a + b
         v1 = P / 2
         m1 = -P * L / 8
         v2 = P / 2

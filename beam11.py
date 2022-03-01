@@ -7,6 +7,7 @@ import time
 
 start_time = time.time() # Starting time
 
+# UNITS: METRIC (meters & kN)
 
 # Node coordinates (modeled with 4 nodes)
 nodes = np.array([[0], [4], [6], [11]])
