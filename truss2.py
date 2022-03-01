@@ -41,8 +41,8 @@ fg = np.array([[2, 40], [3, -30]])
 # Unknown global forces
 fu = np.array([0, 1, 4, 5])  
 
-Kl = []   # Each elems local [k] (global coords)
 Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
+Kl = []   # Each elems local [k] (global coords)
 
 newKg = KgTruss(n, m, nodes, members, E, A, L1,
         L2, a1, a2, Kg, Kl, fg, dgf)

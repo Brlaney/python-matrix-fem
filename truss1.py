@@ -7,7 +7,6 @@ import time
 
 start_time = time.time() # Starting time
 
-
 # Node coordinates
 nodes = np.array([
     [0, 0],
