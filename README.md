@@ -116,35 +116,23 @@ Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
 
 newKg = KgTruss(n, m, nodes, members, E, A, L1,
         L2, a1, a2, Kg, Kl, fg, dgf)
-```
 
-</br>
-
-Appending the following code to the file will output the following.
-
-```python
-#...
-
-newKg = KgTruss(n, m, nodes, members, E, A, L1,
-        L2, a1, a2, Kg, Kl, fg, dgf)
-
-print('\nLengths (in)')
-print(L1)
-print('\nLengths (ft)')
-print(L2)
-print('\nAngles (degrees)')
-print(a1)
-print('\nAngles (radians)')
-print(a2)
+# The following code is to output the results into your console
+print('\nLengths (in)\n', L1)
+print('\nLengths (ft)\n', L2)
+print('\nAngles (degrees)\n', a1)
+print('\nAngles (radians)\n', a2)
 
 print('\nGlobal stiffness matrix [K]')
 for i in range(len(newKg)):
     print('Row', i + 1, newKg[i])
 ```
 
-```cmd
-C:\Documents\coding\python-matrix-fem>py truss1.py
+</br>
 
+Running `py truss1.py` in your terminal will output:
+
+```cmd
 Lengths (in)
 [169.7, 120.0, 169.7, 268.3, 268.3]
 
