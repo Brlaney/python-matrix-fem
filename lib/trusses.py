@@ -17,7 +17,8 @@ def calc_theta(dx, dy):
     elif dx == 0 and dy < 0: a1 = 270
     else: print('An error has occured. The system does not match any case.')
     
-    a2 = radians(a1)  # Convert from deg to rad
+    a2 = round(radians(a1), 2)  # Convert from deg to rad
+    a1 = round(a1, 1)
     return [a1, a2]
 
 def KgTruss(n, m, nodes, members, E, A, L1, L2, a1, a2, Kg, Kl, fg, dgf):
@@ -169,6 +170,10 @@ def KgTruss(n, m, nodes, members, E, A, L1, L2, a1, a2, Kg, Kl, fg, dgf):
         Kg_2 = np.copy(Kg) # Copy of Kg thus far
         Kg = Kg_2 + newK   # Add the newK to Kg
         
+        # Round lengths only after using to calculate [K] matrix
+        l1 = round(l1, 1)  
+        l2 = round(l2, 1)
+
         L1.append(l1)
         L2.append(l2)
         a1.append(theta1)
@@ -178,5 +183,6 @@ def KgTruss(n, m, nodes, members, E, A, L1, L2, a1, a2, Kg, Kl, fg, dgf):
     # Only copy the return value Kg IF 
     # the for loop above has finished!
     newKg = np.copy(Kg)
+    newKg = np.round(newKg)
     
     return newKg

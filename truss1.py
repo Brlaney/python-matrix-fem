@@ -1,11 +1,8 @@
 # truss1.py
 from lib.trusses import *
 import numpy as np
-import time
 
-start_time = time.time() # Starting time
-
-# Node coordinates
+# Node coordinates (in)
 nodes = np.array([
     [0, 0],
     [120, 120],
@@ -47,20 +44,15 @@ Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
 newKg = KgTruss(n, m, nodes, members, E, A, L1,
         L2, a1, a2, Kg, Kl, fg, dgf)
 
-print('\nLength in inches')
+print('\nLengths (in)')
 print(L1)
-print('\nLength in feet')
+print('\nLengths (ft)')
 print(L2)
-print('\nAngles in degrees')
+print('\nAngles (degrees)')
 print(a1)
-print('\nAngles in radians')
+print('\nAngles (radians)')
 print(a2)
 
-print('\nGlobal stiffness matrix')
-print(newKg)
-
-# Calculate time elapsed and display
-end_time = time.time() 
-final_time = end_time - start_time
-final_r = round(final_time, 7)
-print('\nTime elapsed:', final_r)
+print('\nGlobal stiffness matrix [K]')
+for i in range(len(newKg)):
+    print('Row', i + 1, newKg[i])

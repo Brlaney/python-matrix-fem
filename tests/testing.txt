@@ -21,10 +21,11 @@ import time
 
 start_time = time.time() # Starting time
 
-end_time = time.time() # End time when code finishes
-final_time = end_time - start_time
-final_r = round(final_time, 7)
-print('\nTime elapsed:', final_r)
+# Calculate time elapsed and display
+# end_time = time.time() 
+# final_time = end_time - start_time
+# final_r = round(final_time, 7)
+# print('\nTime elapsed:', final_r)
 '''
 
 
