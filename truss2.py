@@ -9,7 +9,7 @@ nodes = np.array([
     [240, 0],
     [120, 0]])
 
-# Member/element connection matrix
+# Member connections
 members = np.array([
     [1, 2],
     [1, 4],
@@ -35,21 +35,21 @@ fg = np.array([[2, 40], [3, -30]])
 # Unknown global forces
 fu = np.array([0, 1, 4, 5])  
 
-Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
-Kl = []   # Each elems local [k] (global coords)
+# Global stiffness matrix
+Kg = np.zeros((2*n, 2*n))  
+
+# Used for each elems local [k] (global coords)
+Kl = []  
 
 newKg = KgTruss(n, m, nodes, members, E, A, L1,
         L2, a1, a2, Kg, Kl, fg, dgf)
 
-print('\nLengths (in)')
-print(L1)
-print('\nLengths (ft)')
-print(L2)
-print('\nAngles (degrees)')
-print(a1)
-print('\nAngles (radians)')
-print(a2)
+print('\nLengths (in)\n', L1)
+print('\nLengths (ft)\n', L2)
+print('\nAngles (degrees)\n', a1)
+print('\nAngles (radians)\n', a2)
 
 print('\nGlobal stiffness matrix [K]')
 for i in range(len(newKg)):
     print('Row', i + 1, newKg[i])
+
