@@ -70,6 +70,139 @@ Let me know if you have any questions and feel free to reach out to me through a
 </br>
 </br>
 
+```python
+# truss1.py
+from lib.trusses import *
+import numpy as np
+import time
+
+# Node coordinates
+nodes = np.array([
+    [0, 0],
+    [120, 120],
+    [240, 120],
+    [360, 0]])
+
+# Member connection matrix
+members = np.array([
+    [1, 2],
+    [2, 3],
+    [3, 4],
+    [1, 3],
+    [2, 4]])
+
+L1 = []                      # length in inches
+L2 = []                      # length in feet
+a1 = []                      # units: degrees
+a2 = []                      # units: radians
+n = len(nodes)               # number of nodes
+m = len(members)             # number of members
+A = np.repeat(2, m)          # Cross-sectional areas of each element
+E = np.repeat(29*10**6, m)   # Modulus of elasticity for each element
+
+# 1 => Un-restrained global degrees of freedom
+dgf = np.array([0, 0, 1, 1, 1, 1, 0, 0])
+
+# External forces (lbs)
+fg = np.array([2, -30000])
+
+# Unknown global forces
+fu = np.array([0, 1, 6, 7])
+
+# given displacements
+dp = np.array([[1, -0.6], [6, -0.3]])
+
+Kl = []  # Each elems local [k] (global coords)
+Kg = np.zeros((2*n, 2*n))  # global stiffness matrix
+
+newKg = KgTruss(n, m, nodes, members, E, A, L1,
+        L2, a1, a2, Kg, Kl, fg, dgf)
+
+```
+
+</br>
+
+Appending the following code to the file will output the following.
+
+```python
+#...
+
+newKg = KgTruss(n, m, nodes, members, E, A, L1,
+        L2, a1, a2, Kg, Kl, fg, dgf)
+
+print('\nLength in inches')
+print(L1)
+print('\nLength in feet')
+print(L2)
+print('\nAngles in degrees')
+print(a1)
+print('\nAngles in radians')
+print(a2)
+
+print('\nGlobal stiffness matrix')
+print(newKg)
+```
+
+```cmd
+C:\Users\Brlan\Documents\coding\python-matrix-fem>py truss1.py
+
+Time elapsed: 0.0076985
+
+C:\Users\Brlan\Documents\coding\python-matrix-fem>py truss2.py
+[[ 6.54217472e+05  1.70884139e+05 -1.70884139e+05 -1.70884139e+05
+   0.00000000e+00  0.00000000e+00 -4.83333333e+05  0.00000000e+00]
+ [ 1.70884139e+05  1.70884139e+05 -1.70884139e+05 -1.70884139e+05
+   0.00000000e+00  0.00000000e+00  0.00000000e+00  0.00000000e+00]
+ [-1.70884139e+05 -1.70884139e+05  3.41768278e+05  1.16415322e-10
+  -1.70884139e+05 -1.70884139e+05 -1.63098876e-26 -4.83333333e+05]
+ [-1.70884139e+05 -1.70884139e+05  1.16415322e-10  8.25101611e+05
+   1.70884139e+05 -1.70884139e+05 -8.87868929e-11 -4.83333333e+05]
+ [ 0.00000000e+00  0.00000000e+00 -1.70884139e+05  1.70884139e+05
+   6.54217472e+05 -1.70884139e+05 -4.83333333e+05 -7.24883895e-27]
+ [ 0.00000000e+00  0.00000000e+00  1.70884139e+05 -1.70884139e+05
+  -1.70884139e+05  1.70884139e+05  5.91912620e-11 -7.24883895e-27]
+ [-4.83333333e+05  0.00000000e+00 -1.63098876e-26 -8.87868929e-11
+  -4.83333333e+05  5.91912620e-11  9.66666667e+05  2.95956310e-11]
+ [ 0.00000000e+00  0.00000000e+00 -8.87868929e-11 -4.83333333e+05
+   5.91912620e-11 -7.24883895e-27  2.95956310e-11  4.83333333e+05]]
+
+Final time: 0.0
+
+C:\Users\Brlan\Documents\coding\python-matrix-fem>py truss1.py
+
+Length in inches
+[169.7056274847714, 120.0, 169.7056274847714, 268.32815729997475, 268.32815729997475]
+
+Length in feet
+[14.142135623730951, 10.0, 14.142135623730951, 22.360679774997894, 22.360679774997894]
+
+Angles in degrees
+[45.0, 0, 315.0, 26.56505117707799, 333.434948822922]
+
+Angles in radians
+[0.7853981633974483, 0.0, 5.497787143782138, 0.4636476090008061, 5.81953769817878]
+
+Global stiffness matrix
+[[ 343806.72904673  257345.43391674 -170884.13878675 -170884.13878675
+  -172922.59025998  -43230.647565         0.               0.        ]
+ [ 257345.43391674  214114.78635174 -170884.13878675 -170884.13878675
+   -86461.29512999  -43230.647565         0.               0.        ]
+ [-170884.13878675 -170884.13878675  827140.06238007   84422.84365676
+  -483333.33333333       0.         -172922.59025998  -43230.647565  ]
+ [-170884.13878675 -170884.13878675   84422.84365676  214114.78635174
+        0.               0.           86461.29512999  -43230.647565  ]
+ [-172922.59025998  -86461.29512999 -483333.33333333       0.
+   827140.06238007  -84422.84365676 -170884.13878675 -170884.13878675]
+ [ -86461.29512999  -43230.647565         0.               0.
+   -84422.84365676  214114.78635175  170884.13878675 -170884.13878675]
+ [      0.               0.         -172922.59025998   86461.29512999
+  -170884.13878675  170884.13878675  343806.72904673 -257345.43391674]
+ [      0.               0.           86461.29512999  -43230.647565
+   170884.13878675 -170884.13878675 -257345.43391674  214114.78635175]]
+```
+
+</br>
+
 <div align="center">
   <h4><b>Truss Example 2 - figure 2.</b></h4>
   <img 
