@@ -25,7 +25,7 @@
 - [Project demo - examples](#Demo)
   - [1. Truss-1](Truss-Example-1-figure-1)
   - [2. Truss-2](Truss-Example-2-figure-2)
-  - [3. Beam-1](Beam-Example-1-figure-3)
+  <!-- - [3. Beam-1](Beam-Example-1-figure-3) -->
 - [Quick start](#quick-start)
   - [1. Clone repository](#1-clone-repository)
   - [2. Install dependencies](#2-install-dependencies)
