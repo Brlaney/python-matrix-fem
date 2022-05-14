@@ -38,16 +38,9 @@
 
 The main goal of this project is to allow the user to understand the [matrix displacement method](https://en.wikipedia.org/wiki/Direct_stiffness_method) by learning visually and interactively. The **matrix displacement method**, or the **stiffness method**, usually requires an understanding of statics and structural mechanics (analysis) - my goal is to make content that is approachable from any level of understanding of these topics.
 
-I am referring to statics and structural analysis within the context of *Civil Engineering*, they are both courses required for [ABET](https://www.abet.org/) accredited Civil Engineering degrees. Regardless if you are a Civil Engineer (or studying to become one), they are interesting and intuitive subjects that are a direct implication of [Newtonian Mechanics](https://en.wikipedia.org/wiki/Newton%27s_laws_of_motion). Newton's first law states that `an object at rest will stay at rest` implying that the sum of all forces on that object equal zero.
+**Statics** and **structural analysis** are two courses required by [ABET](https://www.abet.org/) when obtaining a Civil Engineering degree. Regardless if you are a Civil Engineer (or studying to become one), they are fascinating subjects that are a consequence of [Newtonian Mechanics](https://en.wikipedia.org/wiki/Newton%27s_laws_of_motion). Newton's first law states that `an object at rest will stay at rest` which implies that the sum of all forces on a structural system (trusses, beams, and frames) must equal zero.
 
 How does this apply to Civil Engineering? Well, when designing and modeling any structure, our end goal is for the structure to be rigid - Civil Engineers call this **static equalibrium**. This is pretty obvious, but this basic concept is the foundation for analysing any structural system.
-
-This project contains three **components** or **page directories** (see src/pages/). 
-
-- **1. Solver** (*./src/pages/solver/*)
-- **2. Stiffness** (*./src/pages/stiffness/*)
-
-The solver **(1.)** is where users can go through an a multi-part form inputting all of the necessary information about either a Truss, Beam, or Frame system and a detailed solution will be output. The pages within the stiffness **(2.)** directory contain tutorials, walkthroughs, and examples which allow the user to better understand the matrix displacement method or build a solid foundation of the basics. The bridge-design **(3.)** directory will eventually contain similar tutorials as the stiffness **(2.)** directory, but as of `9/29/2021` I have mainly been building the features within solver **(1.)** and stiffness **(2.)**.
 
 Let me know if you have any questions and feel free to reach out to me through any of the provided contacts at the bottom of this readme. Have fun!
 
