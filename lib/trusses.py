@@ -2,7 +2,6 @@
 from math import sin, cos, atan, pi, radians, dist
 import numpy as np
 
-
 def calc_theta(dx, dy):
     '''
     First 4 cases: Quad-IV, III, II, & I
@@ -20,7 +19,6 @@ def calc_theta(dx, dy):
     
     a2 = radians(a1)  # Convert from deg to rad
     return [a1, a2]
-
 
 def KgTruss(n, m, nodes, members, E, A, L1, L2, a1, a2, Kg, Kl, fg, dgf):
     '''

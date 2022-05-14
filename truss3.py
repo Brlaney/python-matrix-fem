@@ -1,5 +1,4 @@
-# truss example 3
-# import pandas as pd
+# truss3.py
 from lib.trusses import *
 import numpy as np
 import time
@@ -22,28 +21,26 @@ members = np.array([
     [2, 3],
     [4, 3]])
 
-L1 = []                       # length in inches
-L2 = []                       # length in feet
-a1 = []                       # units: degrees
-a2 = []                       # units: radians
-n = len(nodes)                # number of nodes
-m = len(members)              # number of members
-A = np.repeat(1, m)           # Cross-sectional areas of each element
-E = np.repeat(1, m)           # Modulus of elasticity for each element
+L1 = []              # length in inches
+L2 = []              # length in feet
+a1 = []              # units: degrees
+a2 = []              # units: radians
+n = len(nodes)       # number of nodes
+m = len(members)     # number of members
+A = np.repeat(1, m)  # Cross-sectional areas of each element
+E = np.repeat(1, m)  # Modulus of elasticity for each element
 
 # External forces (lbs) in form: [global dof - 1, (+/-) value]
 fg = np.array([[2,-50], [3,25]])
 
 # 1 => Un-restrained global degrees of freedom
-dgf = np.array([0,0,1,1,1,0,1,1])
+dgf = np.array([0, 0, 1, 1, 1, 0, 1, 1])
 dp = np.array([[0,-0.01], [1,-0.025]])  # given displacements (in)
 Kg = np.zeros((2*n,2*n))  # global stiffness matrix
 Kl = []  # Will contain each elems local [k] (global coords)
 
-
 newKg = KgTruss(n, m, nodes, members, E, A, L1,
         L2, a1, a2, Kg, Kl, fg, dgf)
-
 
 print('\nLength in inches')
 print(L1)

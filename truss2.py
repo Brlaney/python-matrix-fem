@@ -1,12 +1,9 @@
-# Chapter (2.) Problem 2.3
-# Reference truss_example_2.png
-# import pandas as pd
+# truss2.py
 from lib.trusses import *
 import numpy as np
 import time
 
 start_time = time.time() # Starting time
-
 
 # Node coordinates (in)
 nodes = np.array([
@@ -23,12 +20,12 @@ members = np.array([
     [2, 3],
     [3, 4]])
 
-L1 = []            # length in inches
-L2 = []            # length in feet
-a1 = []            # units: degrees
-a2 = []            # units: radians
-n = len(nodes)     # number of nodes
-m = len(members)   # number of members
+L1 = []                     # length in inches
+L2 = []                     # length in feet
+a1 = []                     # units: degrees
+a2 = []                     # units: radians
+n = len(nodes)              # number of nodes
+m = len(members)            # number of members
 A = np.repeat(2, 5)         # Cross-sectional areas (sq in)
 E = np.repeat(29*10**6, 5)  # Modulus of elasticity
 
@@ -47,10 +44,21 @@ Kl = []   # Each elems local [k] (global coords)
 newKg = KgTruss(n, m, nodes, members, E, A, L1,
         L2, a1, a2, Kg, Kl, fg, dgf)
 
+print('\nLength in inches')
+print(L1)
+print('\nLength in feet')
+print(L2)
+print('\nAngles in degrees')
+print(a1)
+print('\nAngles in radians')
+print(a2)
+
+print('\nGlobal stiffness matrix')
 print(newKg)
 
 # Calculate time elapsed and display
 end_time = time.time() # End time when code finishes
 final_time = end_time - start_time
 final_r = round(final_time, 8)
-print('\nFinal time:', final_r)
+print('\nTime elapsed:', final_r)
+
