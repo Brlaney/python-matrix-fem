@@ -22,7 +22,10 @@
 ## Table Of Contents
 
 - [Project summary](#Summary)
-- [Project demo](#Demo)
+- [Project demo - examples](#Demo)
+  - [1. Truss-1](Truss-Example-1-figure-1)
+  - [2. Truss-2](Truss-Example-2-figure-2)
+  - [3. Beam-1](Beam-Example-1-figure-3)
 - [Quick start](#quick-start)
   - [1. Clone repository](#1-clone-repository)
   - [2. Install dependencies](#2-install-dependencies)
@@ -51,7 +54,7 @@ Let me know if you have any questions and feel free to reach out to me through a
 </br>
 
 <div align="center">
-  <h4><b>Truss Example 1 - figure 1.</b></h4>
+  <h3><b>Truss Example 1 - figure 1.</b></h3>
   <img 
     src="https://user-images.githubusercontent.com/64326462/153637273-42628283-439c-49b4-86f9-c988d79a3a7b.png" 
     alt="truss-example-1"  
@@ -152,7 +155,7 @@ Row 8 [      0.       0.   86401.  -43151.  170882. -170128. -257284.  213279.]
 </br>
 
 <div align="center">
-  <h4><b>Truss Example 2 - figure 2.</b></h4>
+  <h3><b>Truss Example 2 - figure 2.</b></h3>
   <img 
     src="https://user-images.githubusercontent.com/64326462/153637276-041a25ce-f460-4d2e-a87c-470977d9650c.png" 
     alt="truss-example-2"  
@@ -164,17 +167,102 @@ Row 8 [      0.       0.   86401.  -43151.  170882. -170128. -257284.  213279.]
 </br>
 </br>
 
-<div align="center">
-  <h4><b>Beam Example 1 - figure 3.</b></h4>
+```python
+# truss2.py
+from lib.trusses import *
+import numpy as np
+
+# Node coordinates (in)
+nodes = np.array([
+    [0, 0],
+    [120, 120],
+    [240, 0],
+    [120, 0]])
+
+# Member connections
+members = np.array([
+    [1, 2],
+    [1, 4],
+    [2, 4],
+    [2, 3],
+    [3, 4]])
+
+L1 = []                     # length in inches
+L2 = []                     # length in feet
+a1 = []                     # units: degrees
+a2 = []                     # units: radians
+n = len(nodes)              # number of nodes
+m = len(members)            # number of members
+A = np.repeat(2, 5)         # Cross-sectional areas (sq in)
+E = np.repeat(29*10**6, 5)  # Modulus of elasticity
+
+# 1 => Un-restrained global degrees of freedom
+dgf = np.array([0, 0, 1, 1, 0, 0, 1, 1])
+
+# External forces (kips)
+fg = np.array([[2, 40], [3, -30]]) 
+
+# Unknown global forces
+fu = np.array([0, 1, 4, 5])  
+
+# Global stiffness matrix
+Kg = np.zeros((2*n, 2*n))  
+
+# Used for each elems local [k] (global coords)
+Kl = []  
+
+newKg = KgTruss(n, m, nodes, members, E, A, L1,
+        L2, a1, a2, Kg, Kl, fg, dgf)
+
+# The following code is to output the results into your console
+print('\nLengths (in)\n', L1)
+print('\nLengths (ft)\n', L2)
+print('\nAngles (degrees)\n', a1)
+print('\nAngles (radians)\n', a2)
+
+print('\nGlobal stiffness matrix [K]')
+for i in range(len(newKg)):
+    print('Row', i + 1, newKg[i])
+```
+
+</br>
+
+Running `py truss2.py` in your terminal will output:
+
+```cmd
+Lengths (in)
+[169.7, 120.0, 169.7, 268.3, 268.3]
+
+Lengths (ft)
+[14.1, 10.0, 14.1, 22.4, 22.4]
+
+Angles (degrees)
+[45.0, 0, 315.0, 26.6, 333.4]
+
+Angles (radians)
+[0.79, 0.0, 5.5, 0.46, 5.82]
+
+Global stiffness matrix [K]
+Row 1 [ 342863.  256863. -169311. -172457. -173552.  -42602.       0.       0.]
+Row 2 [ 256863.  215059. -170877. -172457.  -85986.  -42602.       0.       0.]
+Row 3 [-169311. -170877.  825647.   84476. -483333.       0. -173003.  -43151.]
+Row 4 [-170877. -172457.   84476.  215608.       0.       0.   86401.  -43151.]
+Row 5 [-173552.  -85986. -483333.       0.  828525.  -84897. -171640. -170128.]
+Row 6 [ -85986.  -42602.       0.       0.  -84897.  212729.  170882. -170128.]
+Row 7 [      0.       0. -173003.   86401. -171640.  170882.  344643. -257284.]
+Row 8 [      0.       0.   86401.  -43151.  170882. -170128. -257284.  213279.]
+```
+
+<!-- <div align="center">
+  <h3><b>Beam Example 1 - figure 3.</b></h3>
   <img 
     src="https://user-images.githubusercontent.com/64326462/153637271-d16ef5d6-97ab-4e2f-b1ae-70de4fc4ddea.png" 
     alt="beam-example-1"  
     align="center"
     width="900"
   />
-</div>
+</div> -->
 
-</br>
 </br>
 
 ## Quick start
@@ -187,10 +275,10 @@ git clone https://github.com/Brlaney/python-matrix-fem.git
 
 ### 2. Start virtual environment
 
-Note: you can do this many different ways - or you don't necessarily even need to start a virtual environment if you have all of the necessary dependencies. My reason for using one is to easily keep up with all of the dependencies used in the project. The instructions below are what work for me using my Windows terminal.
+**Note:** you can do this many different ways - and if you already have the necessary dependencies installed on your system you don't even need to start a virtual environment.
 
 ```bash
-# Step i.)
+# Step 1.)
 
 virtualenv ll_env
 
@@ -198,7 +286,7 @@ virtualenv ll_env
 
 virtualenv <your-venv-name>
 
-# Step ii.)
+# Step 2.)
 
 ll_env\scripts\activate.bat
 
@@ -225,17 +313,13 @@ py truss1.py
 # or
 
 python truss1.py
-
 ```
 
-The solution to the system should be output in your terminal after running the script.
 </br>
 
 ## Connect with me
 
 - Email: <brlaney@outlook.com>
-- Twitter: [brendan_webdev](https://twitter.com/Brendan_webdev)
-- Instagram: [brlaney94](https://www.instagram.com/brlaney94/)
 
 </br>
 

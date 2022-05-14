@@ -1,13 +1,7 @@
-# Chapter (2.) Problem 2.3
-# Reference beam_example_1.png
-# import pandas as pd
+# beam11.py
+# UNITS: METRIC (meters & kN)
 from lib.beams import *
 import numpy as np
-import time
-
-start_time = time.time() # Starting time
-
-# UNITS: METRIC (meters & kN)
 
 # Node coordinates (modeled with 4 nodes)
 nodes = np.array([[0], [4], [6], [11]])
@@ -37,8 +31,3 @@ newKg = KgBeam(nodes, members, n, m, L, E, I,
             Kl, dgf, fg, Kg, fem)
 
 print(newKg)
-
-end_time = time.time() # End time when code finishes
-final_time = end_time - start_time
-final_r = round(final_time, 8)
-print('\nFinal time:', final_r)
