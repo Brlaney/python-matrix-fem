@@ -47,6 +47,7 @@ Kl = []
 newKg = KgTruss(n, m, nodes, members, E, A, L1,
         L2, a1, a2, Kg, Kl, fg, dgf)
 
+
 print('\nLengths (in)\n', L1)
 print('\nLengths (ft)\n', L2)
 print('\nAngles (degrees)\n', a1)
@@ -55,3 +56,15 @@ print('\nAngles (radians)\n', a2)
 print('\nGlobal stiffness matrix [K]')
 for i in range(len(newKg)):
     print('Row', i + 1, newKg[i])
+
+count = np.count_nonzero(dgf == 1)
+print(f'\nNumber of un-restrained global dofs: {count}')
+
+redKg = KgReduce(dgf, newKg)
+
+print('\n')
+print(redKg)
+
+# print('\nReduced stiffness matrix')
+# for i in range(len(redKg)):
+#     print('Row', i + 1, redKg[i])

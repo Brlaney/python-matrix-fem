@@ -2,11 +2,11 @@
 from math import sin, cos, atan, pi, radians, dist
 import numpy as np
 
+'''
+First 4 cases: Quad-IV, III, II, & I
+Last 4 cases:  theta = 0, 90, 180, 270
+''' 
 def calc_theta(dx, dy):
-    '''
-    First 4 cases: Quad-IV, III, II, & I
-    Last 4 cases:  theta = 0, 90, 180, 270
-    ''' 
     if dx > 0 and dy < 0: a1 = 360+atan(dy/dx)*(180/pi)
     elif dx < 0 and dy < 0: a1 = 270+atan(dy/dx)*(180/pi)
     elif dx < 0 and dy > 0: a1 = 180+atan(dy/dx)*(180/pi)
@@ -21,12 +21,12 @@ def calc_theta(dx, dy):
     a1 = round(a1, 1)
     return [a1, a2]
 
+
+''' 
+The following for loop iterates for however 
+many members are defined in the given system.
+'''
 def KgTruss(n, m, nodes, members, E, A, L1, L2, a1, a2, Kg, Kl, fg, dgf):
-    '''
-      The following for loop iterates for however 
-    many members are defined in the given system.
-    '''
-    
     for i in range(m):
         p = i + 1    # Unique key id (starts at 1)
         newK = np.zeros((2*n, 2*n))
@@ -88,12 +88,6 @@ def KgTruss(n, m, nodes, members, E, A, L1, L2, a1, a2, Kg, Kl, fg, dgf):
             [-cs**2, -cs*sn, cs**2, cs*sn],
             [-cs*sn, -sn**2, cs*sn, sn**2]
         ])
-        
-        '''
-        for j in range(len(kij)):
-            j_n1 = kij[j][0]
-            k_n1 = kij[j][1]
-        '''
         
         # Row 1        
         j_11 = prog_row1[0][0]
@@ -171,7 +165,7 @@ def KgTruss(n, m, nodes, members, E, A, L1, L2, a1, a2, Kg, Kl, fg, dgf):
         Kg = Kg_2 + newK   # Add the newK to Kg
         
         # Round lengths only after using to calculate [K] matrix
-        l1 = round(l1, 1)  
+        l1 = round(l1, 1)
         l2 = round(l2, 1)
 
         L1.append(l1)
@@ -184,5 +178,20 @@ def KgTruss(n, m, nodes, members, E, A, L1, L2, a1, a2, Kg, Kl, fg, dgf):
     # the for loop above has finished!
     newKg = np.copy(Kg)
     newKg = np.round(newKg)
+    
+    return newKg
+
+
+# If m = 0 then dgf --> x-axis
+# If m = 1 then dgf --> y-axis
+# m = i % 2
+def KgReduce(dgf, newKg):
+    n = len(dgf[np.where(dgf == 0)])
+    idxs = np.where(dgf == 0)
+    
+    for i in range(n - 1):
+        idx = idxs[0][i]
+        
+        newKg = np.delete(newKg, idx, axis=[0,1])
     
     return newKg

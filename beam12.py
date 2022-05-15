@@ -30,4 +30,19 @@ fem = np.array([74, -88.9, 75.9, 2.7, 50, -41.7])
 newKg = KgBeam(nodes, members, n, m, L, E, I,
             Kl, dgf, fg, Kg, fem)
 
-print(newKg)
+print('\nLengths')
+j = 1
+for i in L:
+  print(f'Member {j}: {i} (m)')
+  j += 1
+
+print('\nGlobal stiffness matrix [K]')
+for i in range(len(newKg)):
+    print('Row', i + 1, newKg[i])
+
+Kg_inv = np.linalg.inv(newKg)
+
+print('\nReduced global stiffness [K]')
+for i in range(len(newKg)):
+    print('Row', i + 1, newKg[i])
+
