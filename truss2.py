@@ -53,3 +53,5 @@ print('\nGlobal stiffness matrix [K]')
 for i in range(len(newKg)):
     print('Row', i + 1, newKg[i])
 
+count = np.count_nonzero(dgf == 1)
+print(f'\nNumber of un-restrained global dofs: {count}')

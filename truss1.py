@@ -60,10 +60,10 @@ for i in range(len(newKg)):
 count = np.count_nonzero(dgf == 1)
 print(f'\nNumber of un-restrained global dofs: {count}')
 
-redKg = KgReduce(dgf, newKg)
+# redKg = KgReduce(dgf, newKg)
 
-print('\n')
-print(redKg)
+# print('\n')
+# print(redKg)
 
 # print('\nReduced stiffness matrix')
 # for i in range(len(redKg)):
